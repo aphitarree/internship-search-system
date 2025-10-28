@@ -1,24 +1,12 @@
 <?php
-require_once __DIR__ . '/../vendor/autoload.php';
+// เรียกใช้ไฟล์ config ที่เชื่อมต่อฐานข้อมูลแล้ว
+$conn = require __DIR__ . '/../config/db_config.php';
 
-use Dotenv\Dotenv;
-
-// โหลดไฟล์ .env
-$dotenv = Dotenv::createImmutable(dirname(__DIR__));
-$dotenv->load();
-
-$dbServerName = $_ENV['DB_SERVER_NAME'];
-$dbName = $_ENV['DB_NAME'];
-$dbUsername = $_ENV['DB_USERNAME'];
-$dbPassword = $_ENV['DB_PASSWORD'];
+echo "✅ Database connected successfully.<br>";
 
 try {
-    $pdo = new PDO("mysql:host=$dbServerName;dbname=$dbName;charset=utf8mb4", $dbUsername, $dbPassword);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    echo "✅ Database connected successfully.<br>";
-
-    $stmt = $pdo->prepare("INSERT INTO faculty_program_major (faculty, program, major) VALUES (:faculty, :program, :major)");
+    $stmt = $conn->prepare("INSERT INTO faculty_program_major (faculty, program, major)
+                            VALUES (:faculty, :program, :major)");
 
     // ------------------ ข้อมูลทั้งหมด ------------------
     $data = [
