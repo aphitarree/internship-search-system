@@ -1,5 +1,10 @@
 <?php
-
+// Get filter values from the URL, providing default empty values
+$faculty = $_GET['faculty'] ?? '';
+$major = $_GET['major'] ?? '';
+$program = $_GET['program'] ?? '';
+$province = $_GET['province'] ?? '';
+$academic_year = $_GET['academic-year'] ?? '';
 ?>
 <!-- Filters -->
 <section class="mx-auto max-w-[1625px] px-4 mt-10">
@@ -30,6 +35,13 @@
       </div>
 
       <script>
+        // Pass selected values from PHP to JavaScript
+        const selectedFaculty = "<?php echo $faculty; ?>";
+        const selectedMajor = "<?php echo $major; ?>";
+        const selectedProgram = "<?php echo $program; ?>";
+        const selectedProvince = "<?php echo $province; ?>";
+        const selectedAcademicYear = "<?php echo $academic_year; ?>";
+
         const facultyMajorsPrograms = {
           "คณะครุศาสตร์": {
             "การศึกษาปฐมวัย": "หลักสูตรศึกษาศาสตรบัณฑิต",
@@ -179,6 +191,17 @@
         populateFaculties(allFaculties);
         populateMajors(allMajors);
         populatePrograms(allPrograms);
+
+        // Set initial values from URL parameters
+        if (selectedFaculty) {
+          facultyChoices.setChoiceByValue(selectedFaculty);
+        }
+        if (selectedMajor) {
+          majorChoices.setChoiceByValue(selectedMajor);
+        }
+        if (selectedProgram) {
+          programChoices.setChoiceByValue(selectedProgram);
+        }
 
         // ===== Events
         // Faculty -> filter majors/programs
@@ -454,6 +477,10 @@
         };
 
         populateProvinces(provinces);
+
+        if (selectedProvince) {
+          provinceChoices.setChoiceByValue(selectedProvince);
+        }
       </script>
 
       <!-- ปีการศึกษา -->
@@ -505,6 +532,10 @@
         };
 
         populateAcademicYears(academicYears);
+
+        if (selectedAcademicYear) {
+          academicYearChoices.setChoiceByValue(selectedAcademicYear);
+        }
       </script>
     </div>
 
