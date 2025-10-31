@@ -3,7 +3,7 @@
 ?>
 <!-- Filters -->
 <section class="mx-auto max-w-[1625px] px-4 mt-10">
-  <form action="./actions/search_result.php" method="POST">
+  <form action="index.php" method="GET">
     <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
       <!-- Faculty searchable dropdown -->
       <div>
