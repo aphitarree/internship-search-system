@@ -1,6 +1,14 @@
 <?php
+require_once __DIR__ . '/vendor/autoload.php';
+
+use Dotenv\Dotenv;
+
+$dotenv = Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
+$baseUrl = $_ENV['BASE_URL'];
+
 session_start();
-include 'config.php';
 
 // ############################  auto login  ###########################################
 // if (empty($_SESSION['id']) && !empty($_COOKIE['remember_token'])) {
@@ -21,31 +29,34 @@ include 'config.php';
 //         $_SESSION['role'] = $user['role'];
 
 //         if ($user['role'] === 'admin') {
-//             header("Location: {$base_url}/admin-page.php");
+//             header("Location: {$baseUrl}/admin-page.php");
 //         } else {
-//             header("Location: {$base_url}/index.php");
+//             header("Location: {$baseUrl}/index.php");
 //         }
 //         exit;
 //     }
 // }
-// ?>
+// 
+?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
     <div class="container">
         <?php if (!empty($_SESSION['message'])): ?>
-        <div class="alert alert-warning alert-dismissible fade show my-4" role="alert">
-            <?php echo $_SESSION['message']; ?>
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            <?php unset($_SESSION['message']); ?>
-        </div>
+            <div class="alert alert-warning alert-dismissible fade show my-4" role="alert">
+                <?php echo $_SESSION['message']; ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                <?php unset($_SESSION['message']); ?>
+            </div>
         <?php endif; ?>
 
         <div class="row d-flex align-items-center justify-content-center min-vh-100">
@@ -53,23 +64,23 @@ include 'config.php';
                 <div class="login-card">
                     <h1 class="login-title text-center mb-4">Sign In</h1>
 
-                    <form action="<?php echo $base_url.'/login-form.php'; ?>" method="post">
+                    <form action="<?php echo $baseUrl . '/actions/login_form.php'; ?>" method="POST">
                         <div class="mb-3">
                             <label class="form-label">Email</label>
                             <input type="email"
-                                   name="email"
-                                   class="form-control"
-                                   placeholder="Enter your email"
-                                   required>
+                                name="email"
+                                class="form-control"
+                                placeholder="Enter your email"
+                                required>
                         </div>
 
                         <div class="mb-4">
                             <label class="form-label">Password</label>
                             <input type="password"
-                                   name="password"
-                                   class="form-control"
-                                   placeholder="Enter your password"
-                                   required>
+                                name="password"
+                                class="form-control"
+                                placeholder="Enter your password"
+                                required>
                         </div>
                         <!-- ################ remember me ################################### -->
                         <!-- <div class="mb-3 form-check">
@@ -90,4 +101,5 @@ include 'config.php';
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
