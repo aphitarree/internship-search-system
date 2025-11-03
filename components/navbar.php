@@ -1,4 +1,4 @@
-<header class="w-full bg-white border-b">
+<header class="w-full bg-white border-b relative z-10">
     <div class="mx-auto max-w-[1212px] h-16 px-4 flex items-center justify-between">
         <div class="flex items-center gap-3">
             <img src="public/images/SDU Logo.png" alt="SDU" class="h-11 w-auto" />
