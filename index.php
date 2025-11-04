@@ -128,9 +128,27 @@ $baseUrl .= '?' . http_build_query($query_params);
     </section>
 
     <div class="md:container md:mx-auto">
-        <main class="mx-auto w-full max-w-[1900px] px-4 py-2 mt-4 grid grid-cols-1 gap-6 lg:grid-cols-[2fr,1fr] lg:gap-8">
-            <?php include_once './components/chart.php' ?>
-            <?php include_once './components/access_stats.php' ?>
+        <main class="mx-auto w-full max-w-[1900px] px-4 py-2 mt-4 grid grid-cols-1 gap-6 lg:grid-cols-[1fr,1fr] lg:gap-8">
+            <section class="flex flex-col justify-center md:text-center lg:text-left">
+                <h1 class="text-6xl leading-[1.3] my-5 font-bold">
+                    <span class="inline-block">ฐานข้อมูล</span>
+                    <span class="inline-block">การฝึกงาน</span>
+                    <span class="inline-block">นักศึกษา</span>
+                    <span class="inline-block">มหาวิทยาลัย</span>
+                    <span class="inline-block">สวนดุสิต</span>
+                </h1>
+
+                <h2 class="text-4xl leading-[1.3] text-sky-500 mb-5">
+                    รวมข้อมูลฝึกงานมหาวิทยาลัยสวนดุสิต
+                </h2>
+                <p class="text-2xl leading-[2]">
+                    แหล่งรวบรวมข้อมูลสถานประกอบการ ตำแหน่งงาน สาขาที่รองรับและสถิติการเข้าฝึกงานของนักศึกษาช่วยให้นักศึกษาค้นหาสถานที่ฝึกงานได้สะดวกยิ่งขึ้น พร้อมข้อมูลประกอบการตัดสินใจที่เป็นปัจจุบันและเชื่อถือได้
+                </p>
+            </section>
+            <div>
+                <?php include_once './components/chart.php' ?>
+                <?php include_once './components/access_stats.php' ?>
+            </div>
         </main>
 
         <!-- Filters -->

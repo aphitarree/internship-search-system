@@ -1,16 +1,14 @@
 <?php
 ?>
 <!-- Bar chart -->
-<!-- <section class="flex flex-col items-center gap-4 sm:gap-6 lg:gap-8 h-64 sm:h-80 md:h-96 lg:h-[600px]"> -->
-<!-- <section class="flex flex-col items-center gap-4 sm:gap-6 lg:gap-8 min-h-screen"> -->
-<section class="flex flex-col items-center gap-4 sm:gap-6 lg:gap-8 h-full w-full">
+<section class="flex flex-col items-center gap-4 sm:gap-6 lg:gap-8 w-full">
     <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-center">
         จำนวนการเข้าชม (คน)
     </h2>
 
 
     <!-- Chart container ที่ยืดเต็มความสูง -->
-    <div class="w-full max-w-[820px] flex-1 relative">
+    <div class="relative w-full h-[300px] max-w-[820px]">
         <canvas id="chart" class="w-full h-full"></canvas>
     </div>
 
