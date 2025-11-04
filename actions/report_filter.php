@@ -88,7 +88,7 @@ $sql = "
     FROM internship_stats stats
     LEFT JOIN faculty_program_major fpm ON stats.major_id = fpm.id
     $whereSql
-    ORDER BY stats.id DESC
+    ORDER BY stats.year DESC
 ";
 $stmt = $conn->prepare($sql);
 foreach ($params as $key => &$val) {

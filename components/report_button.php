@@ -1,7 +1,4 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 require_once __DIR__ . '/../vendor/autoload.php';
 include_once __DIR__ . '/../index.php';
 
@@ -32,7 +29,7 @@ $baseUrl = $_ENV['BASE_URL'];
 
 
         <button class="flex-1 h-11 rounded-md bg-sky-500 text-white hover:bg-sky-600">
-            <a href="<?php echo $baseUrl; ?>/actions/report.php">ดาวน์โหลดทั้งหมด</a>
+            <a href="<?php echo $baseUrl; ?>/actions/report_all.php">ดาวน์โหลดทั้งหมด</a>
 
         </button>
     </div>
