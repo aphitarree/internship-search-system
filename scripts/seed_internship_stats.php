@@ -16,17 +16,11 @@ $provinces = [
     "นนทบุรี"
 ];
 
-$positions = [
-    "นักศึกษาฝึกงานตำแหน่งบัญชี",
-    "Web Developer Intern",
-    "IT Support Intern",
-    "นักศึกษาฝึกงานด้านการตลาด",
-    "Graphic Design Intern",
-    "Business Analyst Intern",
-    "HR Intern",
-    "Content Creator Intern",
-    "Data Analyst Intern",
-    "Sales Coordinator Intern"
+$contacts = [
+    "0123456789",
+    "john.doe@hotmail.com",
+    "No contact",
+    "1123456789"
 ];
 
 $majors = $conn->query("SELECT id FROM faculty_program_major")->fetchAll(PDO::FETCH_COLUMN);
@@ -37,26 +31,28 @@ if (!$majors || count($majors) == 0) {
 
 $stmt = $conn->prepare("
     INSERT INTO internship_stats 
-    (organization, province, position, major_id, year, total_student)
-    VALUES (?, ?, ?, ?, ?, ?)
+    (organization, province,major_id, year, total_student, contact, score)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
 ");
 
 for ($i = 1; $i <= 100; $i++) {
 
     $organization = "บริษัท ทดสอบ $i จำกัด";
     $province = $provinces[array_rand($provinces)];
-    $position = $positions[array_rand($positions)];
     $major_id = $majors[array_rand($majors)];
     $year = rand(2563, 2568);
     $total_student = rand(1, 20);
+    $contact = $contacts[array_rand($contacts)];
+    $score = rand(1, 5);
 
     $stmt->execute([
         $organization,
         $province,
-        $position,
         $major_id,
         $year,
-        $total_student
+        $total_student,
+        $contact,
+        $score
     ]);
 }
 

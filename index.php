@@ -66,12 +66,13 @@ $sql = "
         stats.id,
         stats.organization AS company_name,
         stats.province,
-        stats.position AS job_title,
         fpm.faculty AS faculty_name,
         fpm.program AS program_name,
         fpm.major AS major_name,
         stats.year AS academic_year,
-        stats.total_student AS internship_count
+        stats.total_student AS internship_count,
+        stats.contact AS contact,
+        stats.score AS score
     FROM internship_stats stats
     LEFT JOIN faculty_program_major fpm ON stats.major_id = fpm.id
     $whereSql

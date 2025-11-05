@@ -39,10 +39,11 @@ try {
         `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         `organization` VARCHAR(255) NOT NULL COMMENT 'ชื่อหน่วยงานที่รับฝึกประสบการณ์',
         `province` VARCHAR(100) NOT NULL COMMENT 'จังหวัด',
-        `position` VARCHAR(255) NOT NULL COMMENT 'ตำแหน่งที่รับฝึกงาน',
         `major_id` INT UNSIGNED NOT NULL COMMENT 'FK to faculty_program_major',
         `year` SMALLINT UNSIGNED NOT NULL COMMENT 'ปี พ.ศ.',
         `total_student` INT UNSIGNED DEFAULT 0 COMMENT 'จำนวนผู้ฝึกงาน',
+        `contact` VARCHAR(255) NOT NULL COMMENT 'ช่องทางการติดต่อ',
+        `score` VARCHAR(50) NOT NULL COMMENT 'คะแนนความพึงพอใจ',
         `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (`major_id`) REFERENCES `faculty_program_major`(`id`) ON DELETE CASCADE
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

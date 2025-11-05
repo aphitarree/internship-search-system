@@ -48,12 +48,13 @@
                     <th class="w-[65px] p-2">NO.</th>
                     <th class="w-[350px] p-2">บริษัท</th>
                     <th class="w-[200px] p-2">จังหวัด</th>
-                    <th class="w-[180px] p-2">ตำแหน่ง</th>
                     <th class="w-[180px] p-2">คณะ</th>
                     <th class="w-[180px] p-2">หลักสูตร</th>
                     <th class="w-[180px] p-2">สาขา</th>
                     <th class="w-[120px] p-2">ปีการศึกษา</th>
                     <th class="w-[130px] p-2">จำนวนที่รับ</th>
+                    <th class="w-[180px] p-2">ข้อมูลการติดต่อ</th>
+                    <th class="w-[65px] p-2">คะแนน</th>
                 </tr>
             </thead>
             <tbody class="">
@@ -70,12 +71,14 @@
                             <td class="p-2 text-center"><?= $offset + $index + 1 ?></td>
                             <td class="p-2 text-left"><?= htmlspecialchars($row['company_name']) ?></td>
                             <td class="p-2 text-left"><?= htmlspecialchars($row['province']) ?></td>
-                            <td class="p-2 text-left"><?= htmlspecialchars($row['job_title']) ?></td>
                             <td class="p-2 text-left"><?= htmlspecialchars($row['faculty_name']) ?></td>
                             <td class="p-2 text-left"><?= htmlspecialchars($row['program_name']) ?></td>
                             <td class="p-2 text-left"><?= htmlspecialchars($row['major_name']) ?></td>
                             <td class="p-2 text-center"><?= htmlspecialchars($row['academic_year']) ?></td>
                             <td class="p-2 text-center"><?= htmlspecialchars($row['internship_count']) ?></td>
+                            <td class="p-2 text-center"><?= htmlspecialchars($row['contact']) ?></td>
+                            <td class="p-2 text-center"><?= htmlspecialchars($row['score']) ?></td>
+
                         </tr>
                     <?php endforeach; ?>
                 <?php endif; ?>
