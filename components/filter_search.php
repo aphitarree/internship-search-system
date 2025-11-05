@@ -48,7 +48,12 @@
             <button class="inline-flex items-center justify-center h-11 px-5 rounded-md bg-gray-200 hover:bg-gray-300" type="submit">
                 ค้นหา
             </button>
+            <!-- clear filter button -->
+            <button class="inline-flex items-center justify-center h-11 px-5 rounded-md bg-gray-200 hover:bg-gray-300" type="button" onclick="window.location.href = window.location.pathname;">
+                ล้างการค้นหา
+            </button>
         </div>
+
     </form>
 </section>
 
