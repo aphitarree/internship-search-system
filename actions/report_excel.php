@@ -47,14 +47,16 @@ if (!empty($whereClause)) {
 // ดึงข้อมูลจากฐานข้อมูล
 $sql = "
     SELECT
+        stats.id,
         stats.organization AS company_name,
         stats.province,
-        stats.position AS job_title,
         fpm.faculty AS faculty_name,
         fpm.program AS program_name,
         fpm.major AS major_name,
         stats.year AS academic_year,
-        stats.total_student AS internship_count
+        stats.total_student AS internship_count,
+        stats.contact AS contact,
+        stats.score AS score
     FROM internship_stats stats
     LEFT JOIN faculty_program_major fpm ON stats.major_id = fpm.id
     $whereSql
@@ -74,19 +76,20 @@ $output = fopen('php://output', 'w');
 
 fwrite($output, "\xEF\xBB\xBF");
 // เขียนหัวตาราง
-fputcsv($output, ['บริษัท', 'จังหวัด', 'ตำแหน่ง', 'คณะ', 'หลักสูตร', 'สาขา', 'ปีการศึกษา', 'จำนวนที่รับ']);
+fputcsv($output, ['บริษัท', 'จังหวัด', 'คณะ', 'หลักสูตร', 'สาขา', 'ปีการศึกษา', 'จำนวนที่รับ', 'ข้อมูลการติดต่อ', 'คะแนน']);
 
 // เขียนข้อมูล
 foreach ($data as $row) {
     fputcsv($output, [
         $row['company_name'],
         $row['province'],
-        $row['job_title'],
         $row['faculty_name'],
         $row['program_name'],
         $row['major_name'],
         $row['academic_year'],
-        $row['internship_count']
+        $row['internship_count'],
+        $row['contact'],
+        $row['score'],
     ]);
 }
 
