@@ -33,11 +33,11 @@ if (
         <button
             class="flex h-11 rounded-md bg-slate-200 hover:bg-slate-300 px-4 text-center justify-center items-center"
             type="submit">
-            ดาวน์โหลดรายการที่เลือก
+            ดาวน์โหลดรายการที่เลือก (.pdf)
         </button>
     </form>
+<?php else: ?>
+    <button class="flex h-11 rounded-md bg-sky-500 text-white hover:bg-sky-600 px-4 text-center justify-center items-center">
+        <a href="<?php echo $baseUrl; ?>/actions/report_all.php">ดาวน์โหลดทั้งหมด (.pdf)</a>
+    </button>
 <?php endif; ?>
-
-<button class="flex h-11 rounded-md bg-sky-500 text-white hover:bg-sky-600 px-4 text-center justify-center items-center">
-    <a href="<?php echo $baseUrl; ?>/actions/report_all.php">ดาวน์โหลดทั้งหมด</a>
-</button>
