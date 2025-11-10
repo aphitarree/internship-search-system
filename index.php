@@ -117,7 +117,6 @@ $baseUrl .= '?' . http_build_query($query_params);
 <body class="bg-white text-gray-900">
     <!-- Navigator bar -->
     <?php include_once './components/navbar.php'; ?>
-
     <!-- Banner -->
     <section class="relative w-full">
         <img src="public/images/background-1.jpg" alt="Banner" class="w-full h-[185px] object-cover" />
@@ -167,6 +166,8 @@ $baseUrl .= '?' . http_build_query($query_params);
 
             <!-- Excel Button-->
             <?php include_once './components/excel_report_button.php' ?>
+
+            <?php include_once './components/insert_excel_button.php' ?>
         </div>
     </div>
 

@@ -66,8 +66,10 @@ $stmt->execute($params);
 $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // ตั้งค่าหัวไฟล์ให้เบราว์เซอร์ดาวน์โหลดเป็น CSV
-header('Content-Type: text/csv; charset=utf-8');
-header('Content-Disposition: attachment; filename=internship_report.csv');
+header('Content-Type: application/octet-stream');
+header('Content-Disposition: attachment; filename="internship_report.csv"');
+header('Pragma: no-cache');
+header('Expires: 0');
 
 // เขียน CSV ออกไป
 $output = fopen('php://output', 'w');
