@@ -1,4 +1,5 @@
 <?php
+
 require_once __DIR__ . '/../includes/auth.php';
 
 ?>
@@ -10,7 +11,7 @@ require_once __DIR__ . '/../includes/auth.php';
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Internship Dashboard</title>
+    <title>Insert Dashboard</title>
 
     <!-- Font Awesome -->
     <link href="../vendor/fortawesome/font-awesome/css/all.min.css" rel="stylesheet" type="text/css">
@@ -35,7 +36,7 @@ require_once __DIR__ . '/../includes/auth.php';
     <div id="wrapper" class="min-h-screen flex">
 
         <!-- Sidebar -->
-        <?php include_once './components/sidebar.php'; ?>
+
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="flex-1 flex flex-col min-h-screen">
@@ -49,7 +50,17 @@ require_once __DIR__ . '/../includes/auth.php';
                 <!-- Begin Page Content -->
                 <div class="container mx-auto px-4 py-6 lg:px-8 lg:py-8">
 
-                    <?php include_once './components/intern_table.php' ?>
+                    <?php include_once './components/table_insert_excel.php' ?>
+
+
+                    <form action="<?php echo $baseUrl; ?>/dashboard/actions/insert_excel.php" method="POST" enctype="multipart/form-data">
+                        <input type="file" name="excel_file" required>
+                        <button
+                            class="flex h-11 rounded-md bg-slate-200 hover:bg-slate-300 px-4 text-center justify-center items-center"
+                            type="submit" name="submit">
+                            เพิ่มฐานข้อมูลจาก Excel
+                        </button>
+                    </form>
 
                 </div>
 

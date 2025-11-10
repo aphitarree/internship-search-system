@@ -1,164 +1,244 @@
-<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-        <i class="fa fa-bars"></i>
-    </button>
+<?php
+// ถ้ามี session เก็บชื่อ user อยู่แล้ว สามารถเปลี่ยนตรงนี้ได้ภายหลัง
+$userName = 'Douglas McGee';
+?>
 
-    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-        <div class="input-group">
-            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-            <div class="input-group-append">
-                <button class="btn btn-primary" type="button"><i class="fas fa-search fa-sm"></i></button>
-            </div>
+<nav class="bg-white shadow-sm border-b border-gray-200 mb-4">
+    <div class="px-4 lg:px-6 py-2 flex items-center justify-between gap-3">
+
+        <!-- Left: Sidebar Toggle (mobile) + Search (desktop) -->
+        <div class="flex items-center gap-3 flex-1 min-w-0">
+
+            <!-- Mobile Sidebar Toggle -->
+            <button
+                id="sidebarToggleTop"
+                type="button"
+                class="inline-flex items-center justify-center w-9 h-9 rounded-full text-gray-500 hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 md:hidden">
+                <i class="fa fa-bars text-sm"></i>
+            </button>
+
+            <!-- Desktop Search -->
+            <form
+                class="hidden sm:flex items-center flex-1 max-w-md ml-1"
+                onsubmit="return false;">
+                <div class="flex w-full items-center rounded-full bg-gray-100 px-3 py-1.5 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:bg-white transition">
+                    <input
+                        type="text"
+                        class="flex-1 bg-transparent border-none text-sm text-gray-700 placeholder-gray-400 focus:outline-none"
+                        placeholder="Search for..."
+                        aria-label="Search">
+                    <button
+                        type="button"
+                        class="ml-2 inline-flex items-center justify-center w-8 h-8 rounded-full bg-indigo-600 text-white text-xs hover:bg-indigo-700 transition">
+                        <i class="fas fa-search fa-sm"></i>
+                    </button>
+                </div>
+            </form>
         </div>
-    </form>
 
-    <ul class="navbar-nav ml-auto">
-        <li class="nav-item dropdown no-arrow d-sm-none">
-            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-search fa-fw"></i>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
-                <form class="form-inline mr-auto w-100 navbar-search">
-                    <div class="input-group">
-                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="button"><i class="fas fa-search fa-sm"></i></button>
+        <!-- Right: Search (mobile icon) + User Menu -->
+        <div class="flex items-center gap-3">
+
+            <!-- Mobile Search Icon -->
+            <div class="relative sm:hidden">
+                <button
+                    type="button"
+                    id="mobileSearchToggle"
+                    class="inline-flex items-center justify-center w-9 h-9 rounded-full text-gray-500 hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    aria-expanded="false">
+                    <i class="fas fa-search fa-fw text-sm"></i>
+                </button>
+
+                <!-- Mobile Search Panel -->
+                <div
+                    id="mobileSearchPanel"
+                    class="hidden absolute right-0 mt-2 w-72 bg-white border border-gray-200 rounded-xl shadow-lg p-3 z-40">
+                    <form onsubmit="return false;">
+                        <div class="flex w-full items-center rounded-full bg-gray-100 px-3 py-1.5 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:bg-white transition">
+                            <input
+                                type="text"
+                                class="flex-1 bg-transparent border-none text-sm text-gray-700 placeholder-gray-400 focus:outline-none"
+                                placeholder="Search for..."
+                                aria-label="Search">
+                            <button
+                                type="button"
+                                class="ml-2 inline-flex items-center justify-center w-8 h-8 rounded-full bg-indigo-600 text-white text-xs hover:bg-indigo-700 transition">
+                                <i class="fas fa-search fa-sm"></i>
+                            </button>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
-        </li>
 
-        <!-- <li class="nav-item dropdown no-arrow mx-1">
-            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-bell fa-fw"></i>
-                <span class="badge badge-danger badge-counter">3+</span>
-            </a>
-            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
-                <h6 class="dropdown-header">Alerts Center</h6>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                    <div class="mr-3">
-                        <div class="icon-circle bg-primary"><i class="fas fa-file-alt text-white"></i></div>
-                    </div>
-                    <div>
-                        <div class="small text-gray-500">December 12, 2019</div>
-                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                    </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                    <div class="mr-3">
-                        <div class="icon-circle bg-success"><i class="fas fa-donate text-white"></i></div>
-                    </div>
-                    <div>
-                        <div class="small text-gray-500">December 7, 2019</div>
-                        $290.29 has been deposited into your account!
-                    </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                    <div class="mr-3">
-                        <div class="icon-circle bg-warning"><i class="fas fa-exclamation-triangle text-white"></i></div>
-                    </div>
-                    <div>
-                        <div class="small text-gray-500">December 2, 2019</div>
-                        Spending Alert: We've noticed unusually high spending for your account.
-                    </div>
-                </a>
-                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-            </div>
-        </li>
+            <!-- Divider -->
+            <div class="hidden sm:block w-px h-7 bg-gray-200"></div>
 
-        <li class="nav-item dropdown no-arrow mx-1">
-            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-envelope fa-fw"></i>
-                <span class="badge badge-danger badge-counter">7</span>
-            </a>
-            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
-                <h6 class="dropdown-header">Message Center</h6>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                    <div class="dropdown-list-image mr-3">
-                        <img class="rounded-circle" src="img/undraw_profile_1.svg" alt="...">
-                        <div class="status-indicator bg-success"></div>
-                    </div>
-                    <div class="font-weight-bold">
-                        <div class="text-truncate">Hi there! I am wondering if you can help me with a problem I've been having.</div>
-                        <div class="small text-gray-500">Emily Fowler · 58m</div>
-                    </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                    <div class="dropdown-list-image mr-3">
-                        <img class="rounded-circle" src="img/undraw_profile_2.svg" alt="...">
-                        <div class="status-indicator"></div>
-                    </div>
-                    <div>
-                        <div class="text-truncate">I have the photos that you ordered last month, how would you like them sent to you?</div>
-                        <div class="small text-gray-500">Jae Chun · 1d</div>
-                    </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                    <div class="dropdown-list-image mr-3">
-                        <img class="rounded-circle" src="img/undraw_profile_3.svg" alt="...">
-                        <div class="status-indicator bg-warning"></div>
-                    </div>
-                    <div>
-                        <div class="text-truncate">Last month's report looks great, I am very happy with the progress so far, keep up the good work!</div>
-                        <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-                    </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                    <div class="dropdown-list-image mr-3">
-                        <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60" alt="...">
-                        <div class="status-indicator bg-success"></div>
-                    </div>
-                    <div>
-                        <div class="text-truncate">Am I a good boy? The reason I ask is because someone told me that people say this to all dogs, even if they aren't good...</div>
-                        <div class="small text-gray-500">Chicken the Dog · 2w</div>
-                    </div>
-                </a>
-                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-            </div>
-        </li> -->
+            <!-- User Menu -->
+            <div class="relative">
+                <button
+                    id="userMenuButton"
+                    type="button"
+                    class="flex items-center gap-2 rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500 px-2 py-1 hover:bg-gray-50">
+                    <span class="hidden lg:inline text-sm text-gray-700">
+                        <?php echo htmlspecialchars($userName); ?>
+                    </span>
+                    <img
+                        src="img/undraw_profile.svg"
+                        alt="User Avatar"
+                        class="w-9 h-9 rounded-full border border-gray-200 object-cover">
+                    <i class="fas fa-chevron-down text-[10px] text-gray-400"></i>
+                </button>
 
-        <div class="topbar-divider d-none d-sm-block"></div>
+                <!-- Dropdown -->
+                <div
+                    id="userMenuDropdown"
+                    class="hidden absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-xl shadow-lg z-50 py-1 text-sm">
+                    <a
+                        href="./profile.php"
+                        class="flex items-center px-3 py-2 text-gray-700 hover:bg-gray-50">
+                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                        <span>Profile</span>
+                    </a>
+                    <a
+                        href="#"
+                        class="flex items-center px-3 py-2 text-gray-700 hover:bg-gray-50">
+                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                        <span>Settings</span>
+                    </a>
+                    <a
+                        href="#"
+                        class="flex items-center px-3 py-2 text-gray-700 hover:bg-gray-50">
+                        <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                        <span>Activity Log</span>
+                    </a>
 
-        <li class="nav-item dropdown no-arrow">
-            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
-            </a>
-            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="./profile.php"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>Profile</a>
-                <a class="dropdown-item" href="#"><i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>Settings</a>
-                <a class="dropdown-item" href="#"><i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>Activity Log</a>
-                <div class="dropdown-divider"></div>
-                <a
-                    class="dropdown-item"
-                    data-toggle="modal"
-                    data-target="#logoutModal"
-                    role="button">
-                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Logout
-                </a>
-            </div>
-        </li>
-    </ul>
-</nav>
+                    <div class="my-1 border-t border-gray-100"></div>
 
-<!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-            </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a
-                    href="<?php echo $baseUrl . '/actions/logout_form.php' ?>"
-                    class="btn btn-primary">
-                    Logout</a>
+                    <button
+                        type="button"
+                        data-logout-open="true"
+                        class="w-full text-left flex items-center px-3 py-2 text-red-600 hover:bg-red-50">
+                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                        <span>Logout</span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
+</nav>
+
+<!-- Logout Modal (Tailwind) -->
+<div
+    id="logoutModal"
+    class="fixed inset-0 z-50 hidden bg-black/50 items-center justify-center px-4">
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-md overflow-hidden">
+        <div class="flex items-center justify-between px-5 py-3 border-b border-gray-200">
+            <h5 class="text-lg font-semibold text-gray-800">Ready to Leave?</h5>
+            <button
+                type="button"
+                class="text-gray-400 hover:text-gray-600 focus:outline-none"
+                data-logout-close="true">
+                <span class="text-2xl leading-none">&times;</span>
+            </button>
+        </div>
+        <div class="px-5 py-4 text-sm text-gray-700">
+            Select "Logout" below if you are ready to end your current session.
+        </div>
+        <div class="flex justify-end gap-2 px-5 py-3 border-t border-gray-200">
+            <button
+                type="button"
+                class="px-4 py-2 text-sm font-medium rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50"
+                data-logout-close="true">
+                Cancel
+            </button>
+            <a
+                href="<?php echo $baseUrl . '/actions/logout_form.php'; ?>"
+                class="px-4 py-2 text-sm font-medium rounded-lg bg-indigo-600 text-white hover:bg-indigo-700">
+                Logout
+            </a>
+        </div>
+    </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Mobile search toggle
+        const mobileSearchToggle = document.getElementById('mobileSearchToggle');
+        const mobileSearchPanel = document.getElementById('mobileSearchPanel');
+
+        if (mobileSearchToggle && mobileSearchPanel) {
+            mobileSearchToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                mobileSearchPanel.classList.toggle('hidden');
+                const expanded = mobileSearchToggle.getAttribute('aria-expanded') === 'true';
+                mobileSearchToggle.setAttribute('aria-expanded', String(!expanded));
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!mobileSearchPanel.classList.contains('hidden')) {
+                    if (!mobileSearchPanel.contains(e.target) && e.target !== mobileSearchToggle) {
+                        mobileSearchPanel.classList.add('hidden');
+                        mobileSearchToggle.setAttribute('aria-expanded', 'false');
+                    }
+                }
+            });
+        }
+
+        // User dropdown toggle
+        const userMenuButton = document.getElementById('userMenuButton');
+        const userMenuDropdown = document.getElementById('userMenuDropdown');
+
+        if (userMenuButton && userMenuDropdown) {
+            userMenuButton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                userMenuDropdown.classList.toggle('hidden');
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!userMenuDropdown.classList.contains('hidden')) {
+                    if (!userMenuDropdown.contains(e.target) && e.target !== userMenuButton && !userMenuButton.contains(e.target)) {
+                        userMenuDropdown.classList.add('hidden');
+                    }
+                }
+            });
+        }
+
+        // Logout modal
+        const logoutModal = document.getElementById('logoutModal');
+        if (logoutModal) {
+            document.querySelectorAll('[data-logout-open="true"]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    logoutModal.classList.remove('hidden');
+                    logoutModal.classList.add('flex');
+                    if (userMenuDropdown) userMenuDropdown.classList.add('hidden');
+                });
+            });
+
+            document.querySelectorAll('[data-logout-close="true"]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    logoutModal.classList.add('hidden');
+                    logoutModal.classList.remove('flex');
+                });
+            });
+
+            // ปิดเมื่อคลิกพื้นหลัง
+            logoutModal.addEventListener('click', (e) => {
+                if (e.target === logoutModal) {
+                    logoutModal.classList.add('hidden');
+                    logoutModal.classList.remove('flex');
+                }
+            });
+        }
+
+        // Mobile sidebar toggle: ซ่อน/แสดง aside ตอนหน้าจอเล็ก
+        const sidebarToggleTop = document.getElementById('sidebarToggleTop');
+        const aside = document.querySelector('aside');
+
+        if (sidebarToggleTop && aside) {
+            sidebarToggleTop.addEventListener('click', () => {
+                // toggle แค่บน mobile (md:hidden/ md:block จะไปจัดที่ layout ถ้าอยากเพิ่ม)
+                aside.classList.toggle('hidden');
+            });
+        }
+    });
+</script>
