@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__ . '/../config/db_config.php';
 
-// ดึงจำนวนผู้เข้าชมต่อวันย้อนหลัง 7 วัน
 $sql = "
     SELECT DATE(created_at) AS visit_date, COUNT(*) AS total
     FROM access_logs
@@ -12,20 +11,17 @@ $sql = "
 $stmt = $conn->query($sql);
 $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// สร้าง array วันที่และค่า
 $dates = [];
 $values = [];
 
 for ($i = 6; $i >= 0; $i--) {
     $day = date('Y-m-d', strtotime("-$i days"));
-    // แปลงเป็นภาษาไทย เช่น 6 ม.ค. 65
     $thai_months = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
     $day_j = date('j', strtotime($day));
     $month = $thai_months[date('n', strtotime($day)) - 1];
     $year = date('y', strtotime($day)); // ปีสองหลัก
     $dates[] = "$day_j $month $year";
 
-    // หา total จากฐานข้อมูล
     $found = false;
     foreach ($rows as $row) {
         if ($row['visit_date'] == $day) {
@@ -37,7 +33,6 @@ for ($i = 6; $i >= 0; $i--) {
     if (!$found) $values[] = 0;
 }
 
-// แปลงเป็น JSON ให้ JS ใช้
 $js_dates = json_encode($dates);
 $js_values = json_encode($values);
 ?>
