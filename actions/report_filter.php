@@ -42,30 +42,29 @@ $mpdf = new \Mpdf\Mpdf([
     'default_font' => 'sarabun',
     'autoScriptToLang' => true,
     'autoLangToFont'   => true,
-
 ]);
 
 // Build the WHERE clause
 $whereClause = [];
 $params = [];
 if ($faculty) {
-    $whereClause[] = 'fpm.faculty = :faculty';
+    $whereClause[] = 'faculty_program_major.faculty = :faculty';
     $params[':faculty'] = htmlspecialchars($faculty);
 }
 if ($program) {
-    $whereClause[] = 'fpm.program = :program';
+    $whereClause[] = 'faculty_program_major.program = :program';
     $params[':program'] = htmlspecialchars($program);
 }
 if ($major) {
-    $whereClause[] = 'fpm.major = :major';
+    $whereClause[] = 'faculty_program_major.major = :major';
     $params[':major'] = htmlspecialchars($major);
 }
 if ($province) {
-    $whereClause[] = 'stats.province = :province';
+    $whereClause[] = 'internship_stats.province = :province';
     $params[':province'] = htmlspecialchars($province);
 }
 if ($academicYear) {
-    $whereClause[] = 'stats.year = :academic_year';
+    $whereClause[] = 'internship_stats.year = :academic_year';
     $params[':academic_year'] = htmlspecialchars($academicYear);
 }
 
@@ -76,19 +75,20 @@ if (!empty($whereClause)) {
 
 $sql = "
     SELECT
-        stats.id,
-        stats.organization AS company_name,
-        stats.province,
-        stats.position AS job_title,
-        fpm.faculty AS faculty_name,
-        fpm.program AS program_name,
-        fpm.major AS major_name,
-        stats.year AS academic_year,
-        stats.total_student AS internship_count
-    FROM internship_stats stats
-    LEFT JOIN faculty_program_major fpm ON stats.major_id = fpm.id
+        internship_stats.id,
+        internship_stats.organization,
+        internship_stats.province,
+        faculty_program_major.faculty,
+        faculty_program_major.program,
+        faculty_program_major.major,
+        internship_stats.year,
+        internship_stats.total_student,
+        internship_stats.score,
+        internship_stats.contact
+    FROM internship_stats
+    LEFT JOIN faculty_program_major ON internship_stats.major_id = faculty_program_major.id
     $whereSql
-    ORDER BY stats.year DESC
+    ORDER BY internship_stats.year DESC
 ";
 $stmt = $conn->prepare($sql);
 foreach ($params as $key => &$val) {
@@ -97,8 +97,61 @@ foreach ($params as $key => &$val) {
 $stmt->execute();
 $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+/* echo '<pre>';
+print_r($rows);
+echo '</pre>'; */
+
+
+// Get all company values into a new array
+$allCompany = array_column($rows, 'organization');
+
+// Count the unique company values
+$uniqueCompanyCount = count(array_unique($allCompany));
+
+// Get all province values into a new array
+$allProvince = array_column($rows, 'province');
+
+// Count the unique province values
+$uniqueProvinceCount = count(array_unique($allProvince));
+
+// Get all students values into a new array
+$student = array_column($rows, 'total_student');
+
+// Count all students amount
+$allStudent = $totalStudents = array_sum($student);
+
+// Date of report
+// ตั้ง timezone ให้เป็นเวลาไทย
+date_default_timezone_set('Asia/Bangkok');
+
+// สร้าง array ชื่อเดือนภาษาไทย
+$thaiMonths = [
+    1 => 'มกราคม',
+    'กุมภาพันธ์',
+    'มีนาคม',
+    'เมษายน',
+    'พฤษภาคม',
+    'มิถุนายน',
+    'กรกฎาคม',
+    'สิงหาคม',
+    'กันยายน',
+    'ตุลาคม',
+    'พฤศจิกายน',
+    'ธันวาคม'
+];
+
+// ดึงวันที่ปัจจุบัน
+$day = date('j'); // วันที่
+$month = $thaiMonths[(int)date('n')]; // เดือนเป็นคำไทย
+$year = date('Y') + 543; // แปลงเป็น พ.ศ.
+
+// รวมเป็นข้อความวันที่
+$thaiDate = "$day $month $year";
+
 ob_start();
+
 ?>
+
 <!DOCTYPE html>
 <html lang="th">
 
@@ -116,6 +169,11 @@ ob_start();
         h1 {
             text-align: center;
             margin-bottom: 10px;
+        }
+
+        p {
+            font-family: "sarabun", sans-serif;
+            line-height: 0.75;
         }
 
         table {
@@ -165,11 +223,6 @@ ob_start();
             width: 100px;
         }
 
-        th:nth-child(7),
-        td:nth-child(7) {
-            width: 200px;
-        }
-
         th:nth-child(9),
         td:nth-child(9) {
             width: 68px;
@@ -186,37 +239,86 @@ ob_start();
             padding-left: 0.3rem;
             padding-right: 0.3rem;
         }
+
+        .report-header {
+            width: 80%;
+            margin: 0 auto 10px auto;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .report-header td {
+            vertical-align: top;
+            border: none;
+            padding: 4px 10px;
+            font-family: "sarabun", sans-serif;
+            font-size: 14pt;
+        }
+
+        .report-header .left {
+            width: 35%;
+            text-align: left;
+            padding-left: 25px;
+            white-space: nowrap;
+        }
+
+        .report-header .right {
+            width: 15%;
+            text-align: left;
+            white-space: nowrap;
+        }
     </style>
 </head>
 
 <body>
     <h1>รายงานประวัติการฝึกงาน</h1>
+    <table class="report-header">
+        <tr>
+            <td class="left">
+                <p><b>วันที่พิมพ์รายงาน:</b> <?= $thaiDate; ?></p>
+                <p><b>ผลลัพธ์การค้นหา:</b> <?= count($rows); ?> การค้นหา</p>
+                <p><b>ตัวกรอง:</b>
+                    <b>คณะ:</b> <?= htmlspecialchars($faculty ?: 'ทั้งหมด') ?>,
+                    <b>หลักสูตร:</b> <?= htmlspecialchars($program ?: 'ทั้งหมด') ?>,
+                    <b>สาขา:</b> <?= htmlspecialchars($major ?: 'ทั้งหมด') ?>,
+                    <b>จังหวัด:</b> <?= htmlspecialchars($province ?: 'ทั้งหมด') ?>,
+                    <b>ปีการศึกษา:</b> <?= htmlspecialchars($academicYear ?: 'ทั้งหมด') ?>
+                </p>
+            </td>
+            <td class="right">
+                <p><b>จำนวนบริษัท:</b> <?= $uniqueCompanyCount; ?> บริษัท</p>
+                <p><b>จำนวนนักศึกษา:</b> <?= $allStudent; ?> คน</p>
+            </td>
+        </tr>
+    </table>
     <table>
         <thead>
             <tr>
                 <th class="text-center">ลำดับ</th>
-                <th>คณะ</th>
-                <th>สาขา</th>
-                <th>หลักสูตร</th>
                 <th>ชื่อบริษัท</th>
                 <th>จังหวัด</th>
-                <th>ตำแหน่ง</th>
+                <th>คณะ</th>
+                <th>หลักสูตร</th>
+                <th>สาขา</th>
                 <th class="text-center">ปีการศึกษา</th>
                 <th class="text-center">จำนวน&nbsp;(คน)</th>
+                <th>ข้อมูลการติดต่อ</th>
+                <th>คะแนน</th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($rows as $index => $row): ?>
                 <tr>
                     <td><?= htmlspecialchars($index + 1) ?></td>
-                    <td class="text-left"><?= htmlspecialchars($row['faculty_name']) ?></td>
-                    <td class="text-left"><?= htmlspecialchars($row['program_name']) ?></td>
-                    <td class="text-left"><?= htmlspecialchars($row['major_name']) ?></td>
-                    <td class="text-left"><?= htmlspecialchars($row['company_name']) ?></td>
+                    <td class="text-left"><?= htmlspecialchars($row['organization']) ?></td>
                     <td class="text-left"><?= htmlspecialchars($row['province']) ?></td>
-                    <td class="text-left"><?= htmlspecialchars($row['job_title']) ?></td>
-                    <td><?= htmlspecialchars($row['academic_year']) ?></td>
-                    <td class="text-center"><?= htmlspecialchars($row['internship_count']) ?></td>
+                    <td class="text-left"><?= htmlspecialchars($row['faculty']) ?></td>
+                    <td class="text-left"><?= htmlspecialchars($row['program']) ?></td>
+                    <td class="text-left"><?= htmlspecialchars($row['major']) ?></td>
+                    <td><?= htmlspecialchars($row['year']) ?></td>
+                    <td class="text-center"><?= htmlspecialchars($row['total_student']) ?></td>
+                    <td class="text-center"><?= htmlspecialchars($row['contact']) ?></td>
+                    <td class="text-center"><?= htmlspecialchars($row['score']) ?></td>
                 </tr>
             <?php endforeach ?>
         </tbody>
