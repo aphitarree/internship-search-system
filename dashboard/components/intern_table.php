@@ -25,6 +25,15 @@ $baseUrl = $_ENV['BASE_URL'] ?? '';
     href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
 
 <section>
+
+    <style>
+        /* ทำให้คอลัมน์ข้อมูลการติดต่อขึ้นบรรทัดใหม่เมื่อข้อความยาว */
+        td.cell-contact {
+            white-space: normal;
+            word-wrap: break-word;
+            word-break: break-word;
+        }
+    </style>
     <!-- ตารางข้อมูลฝึกงาน -->
     <!-- Page Heading -->
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">

@@ -1,4 +1,4 @@
-<section class="bg-slate-50 text-slate-800 antialiased pb-10 mb-10">
+<section class="text-slate-800 antialiased mb-6">
     <style>
         table,
         thead,
@@ -34,7 +34,7 @@
         }
     </style>
 
-    <section class="mx-auto max-w-[1708px] px-4 mt-10">
+    <section class="mx-auto max-w-[1708px] px-4 mt-4">
         <div class="w-full overflow-x-auto rounded-sm border border-gray-300 shadow-sm bg-white">
             <table id="myTable" class="min-w-[1000px] w-full">
                 <thead class="bg-gray-200">

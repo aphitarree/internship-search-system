@@ -51,9 +51,8 @@ $academicYear = $_GET['academic-year'] ?? '';
             </div>
         </div>
 
-        <div class="mt-6 flex items-center justify-center gap-3">
-            <input type="text" placeholder="Search..." class="w-full max-w-[540px] h-11 rounded-md border border-gray-400 px-4" />
-            <button class="inline-flex items-center justify-center h-11 px-5 rounded-md bg-gray-200 hover:bg-gray-300" type="submit">
+        <div class="mt-6 flex items-start justify-start gap-3">
+            <button class="inline-flex items-center justify-center h-11 px-5 rounded-md bg-sky-500 hover:bg-sky-600 text-white font-bold" type="submit">
                 ค้นหา
             </button>
             <!-- clear filter button -->
