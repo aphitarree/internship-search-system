@@ -76,19 +76,19 @@ if (!empty($whereClause)) {
 
 $sql = "
     SELECT
-        stats.id,
-        stats.organization AS company_name,
-        stats.province,
-        stats.position AS job_title,
-        fpm.faculty AS faculty_name,
-        fpm.program AS program_name,
-        fpm.major AS major_name,
-        stats.year AS academic_year,
-        stats.total_student AS internship_count
-    FROM internship_stats stats
-    LEFT JOIN faculty_program_major fpm ON stats.major_id = fpm.id
+        internship_stats.id,
+        internship_stats.organization,
+        internship_stats.province,
+        internship_stats.position,
+        faculty_program_major.faculty,
+        faculty_program_major.program,
+        faculty_program_major.major,
+        internship_stats.year,
+        internship_stats.total_student
+    FROM internship_stats
+    LEFT JOIN faculty_program_major ON internship_stats.major_id = faculty_program_major.id
     $whereSql
-    ORDER BY stats.year DESC
+    ORDER BY internship_stats.year DESC
 ";
 $stmt = $conn->prepare($sql);
 foreach ($params as $key => &$val) {
@@ -166,7 +166,7 @@ ob_start();
             font-family: "sarabun", sans-serif;
             line-height: 1.0;
         }
-        
+
         table {
             border-collapse: collapse;
             width: 100%;
