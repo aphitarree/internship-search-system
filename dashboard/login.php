@@ -41,7 +41,7 @@ if (isset($_SESSION['checklogin'])) {
         </div>
     <?php endif; ?>
     <!-- Navbar -->
-    <!-- <?php include dirname(__DIR__) . '/components/navbar.php'; ?> -->
+    <?php include dirname(__DIR__) . '/components/navbar.php'; ?>
 
     <!-- Layout -->
     <div class="flex min-h-screen">
