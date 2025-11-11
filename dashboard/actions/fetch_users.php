@@ -1,4 +1,3 @@
-
 <?php
 require_once __DIR__ . '/../../vendor/autoload.php';
 require_once __DIR__ . '/../../config/db_config.php';
@@ -16,27 +15,18 @@ if (!empty($_POST)) {
     $request = $_GET;
 }
 
-// Argument that sent form the datatables
+// พารามิเตอร์หลักของ DataTables
 $draw   = isset($request['draw']) ? (int)$request['draw'] : 0;
 $start  = isset($request['start']) ? (int)$request['start'] : 0;
 $length = isset($request['length']) ? (int)$request['length'] : 10;
 
-// Search query from user
 $searchValue = $request['search']['value'] ?? '';
 
 // Map index to real column (field) in the database
 $columnsMap = [
-    0 => 'internship_stats.id',
-    1 => 'internship_stats.organization',
-    2 => 'internship_stats.province',
-    3 => 'faculty_program_major.faculty',
-    4 => 'faculty_program_major.program',
-    5 => 'faculty_program_major.major',
-    6 => 'internship_stats.year',
-    7 => 'internship_stats.total_student',
-    8 => 'internship_stats.contact',
-    9 => 'internship_stats.score',
-    10 => 'internship_stats.id',
+    0 => 'user.id',
+    1 => 'user.email',
+    2 => 'user.username',
 ];
 
 $orderColumnIndex = isset($request['order'][0]['column']) ? (int)$request['order'][0]['column'] : 0;
@@ -47,12 +37,10 @@ if (isset($request['order'][0]['dir']) && strtolower($request['order'][0]['dir']
     $orderDir = 'ASC';
 }
 
-$orderColumn = $columnsMap[$orderColumnIndex] ?? 'internship_stats.id';
+$orderColumn = $columnsMap[$orderColumnIndex] ?? 'user.id';
 
 $baseFrom = "
-    FROM internship_stats
-    INNER JOIN faculty_program_major
-        ON internship_stats.major_id = faculty_program_major.id
+    FROM user
 ";
 
 // Find total number of all records for display
@@ -67,14 +55,9 @@ $params = [];
 if ($searchValue !== '') {
     $where = "
         WHERE
-            internship_stats.organization LIKE :search
-            OR internship_stats.province LIKE :search
-            OR internship_stats.contact LIKE :search
-            OR internship_stats.score LIKE :search
-            OR internship_stats.year LIKE :search
-            OR faculty_program_major.faculty LIKE :search
-            OR faculty_program_major.program LIKE :search
-            OR faculty_program_major.major LIKE :search
+            user.email LIKE :search
+            OR user.username LIKE :search
+            OR user.role LIKE :search
     ";
     $params[':search'] = '%' . $searchValue . '%';
 }
@@ -93,16 +76,10 @@ $recordsFiltered = (int)$stmtFiltered->fetchColumn();
 // Fetch the data
 $sqlData = "
     SELECT
-        internship_stats.id,
-        faculty_program_major.faculty,
-        faculty_program_major.program,
-        faculty_program_major.major,
-        internship_stats.organization,
-        internship_stats.province,
-        internship_stats.contact,
-        internship_stats.score,
-        internship_stats.year,
-        internship_stats.total_student
+        user.id,
+        user.email,
+        user.username,
+        user.role
     " . $baseFrom . ' ' . $where . "
     ORDER BY $orderColumn $orderDir
     LIMIT :start, :length
@@ -122,15 +99,9 @@ $data = [];
 while ($row = $stmtData->fetch(PDO::FETCH_ASSOC)) {
     $data[] = [
         'id' => (int)$row['id'],
-        'organization' => $row['organization'],
-        'province' => $row['province'],
-        'faculty' => $row['faculty'],
-        'program' => $row['program'],
-        'major' => $row['major'],
-        'year' => $row['year'],
-        'total_student' => $row['total_student'],
-        'contact' => $row['contact'],
-        'score' => $row['score'],
+        'email' => $row['email'],
+        'username' => $row['username'],
+        'role' => $row['role'],
     ];
 }
 

@@ -43,7 +43,7 @@ try {
         `year` SMALLINT UNSIGNED NOT NULL COMMENT 'ปี พ.ศ.',
         `total_student` INT UNSIGNED DEFAULT 0 COMMENT 'จำนวนผู้ฝึกงาน',
         `contact` VARCHAR(255) NOT NULL COMMENT 'ช่องทางการติดต่อ',
-        `score` VARCHAR(50) NOT NULL COMMENT 'คะแนนความพึงพอใจ',
+        `score` VARCHAR(5) NOT NULL COMMENT 'คะแนนความพึงพอใจ',
         `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (`major_id`) REFERENCES `faculty_program_major`(`id`) ON DELETE CASCADE
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

@@ -43,24 +43,25 @@ if (!empty($email) && !empty($password)) {
             }
 
             if ($user['role'] === 'admin') {
-                header("Location: {$baseUrl}/admin-page.php");
+                header("Location: {$baseUrl}/dashboard");
             } else {
                 // header("Location: {$baseUrl}/index.php");
-                header("Location: {$baseUrl}/dashboard/index.php");
+                header("Location: {$baseUrl}/index.php");
             }
+
             exit;
         } else {
             $_SESSION['message'] = 'User or password invalid';
-            header("Location: {$baseUrl}/login.php");
+            header("Location: {$baseUrl}/dashboard/login.php");
             exit;
         }
     } else {
         $_SESSION['message'] = 'Username not found';
-        header("Location: {$baseUrl}/login.php");
+        header("Location: {$baseUrl}/dashboard/login.php");
         exit;
     }
 } else {
     $_SESSION['message'] = 'User or password required';
-    header("Location: {$baseUrl}/login.php");
+    header("Location: {$baseUrl}/dashboard/login.php");
     exit;
 }

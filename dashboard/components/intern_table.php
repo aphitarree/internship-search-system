@@ -24,8 +24,7 @@ $baseUrl = $_ENV['BASE_URL'] ?? '';
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
 
-<section>
-
+<section class="mt-4">
     <style>
         /* ทำให้คอลัมน์ข้อมูลการติดต่อขึ้นบรรทัดใหม่เมื่อข้อความยาว */
         td.cell-contact {
@@ -34,19 +33,15 @@ $baseUrl = $_ENV['BASE_URL'] ?? '';
             word-break: break-word;
         }
     </style>
+
     <!-- ตารางข้อมูลฝึกงาน -->
     <!-- Page Heading -->
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
         <h1 class="text-2xl font-semibold text-gray-800">
             ข้อมูลสถานที่ฝึกงาน
         </h1>
-        <button
-            type="button"
-            class="inline-flex items-center px-4 py-2 text-sm font-medium rounded-lg shadow-sm bg-indigo-600 hover:bg-indigo-700 text-white transition">
-            <i class="fas fa-download mr-2 text-sm"></i>
-            Generate Report
-        </button>
     </div>
+
 
     <div class="bg-white shadow rounded-xl mb-6">
         <div class="flex items-center justify-between px-4 py-3 border-b border-gray-200">
@@ -81,7 +76,7 @@ $baseUrl = $_ENV['BASE_URL'] ?? '';
                             <th class="px-3 py-2 font-semibold">จำนวนที่รับ</th>
                             <th class="px-3 py-2 font-semibold">ข้อมูลการติดต่อ</th>
                             <th class="px-3 py-2 font-semibold">คะแนน</th>
-                            <th class="px-3 py-2 font-semibold text-center">จัดการ</th>
+                            <th class="px-3 py-2 font-semibold text-center"></th>
                         </tr>
                     </thead>
                     <!-- server-side จะเติม tbody เอง -->
@@ -100,6 +95,7 @@ $baseUrl = $_ENV['BASE_URL'] ?? '';
         <form
             method="post"
             action="./actions/add_internship.php"
+            id="addForm"
             class="flex flex-col max-h-[90vh] bg-white shadow-md rounded px-8 pt-6 pb-8">
             <div class="flex items-center justify-between pb-4 border-b border-gray-200">
                 <h5 class="text-lg font-semibold">เพิ่มข้อมูลฝึกงาน</h5>
@@ -183,7 +179,6 @@ $baseUrl = $_ENV['BASE_URL'] ?? '';
                         <input
                             type="number"
                             name="total_student"
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             required>
                     </div>
                     <div>
@@ -320,10 +315,13 @@ $baseUrl = $_ENV['BASE_URL'] ?? '';
                             required>
                     </div>
                     <div>
-                        <label class="block text-gray-700 text-sm font-bold mb-2">คะแนน</label>
+                        <label class="block text-gray-700 text-sm font-bold mb-2">คะแนน (0 - 5)</label>
                         <input
-                            type="text"
+                            type="number"
                             name="score"
+                            min="0"
+                            max="5"
+                            step="0.1"
                             id="edit-score"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                     </div>
@@ -354,6 +352,50 @@ $baseUrl = $_ENV['BASE_URL'] ?? '';
                 </button>
             </div>
         </form>
+    </div>
+</div>
+
+<!-- Delete Confirm Modal -->
+<div
+    id="deleteConfirmModal"
+    class="fixed inset-0 z-50 hidden bg-black/50 items-center justify-center px-2">
+    <div class="bg-white rounded-xl shadow-lg w-full max-w-md">
+        <div class="px-6 pt-6 pb-4 border-b border-gray-200 flex items-center justify-between">
+            <h5 class="text-lg font-semibold text-red-600">
+                ยืนยันการลบข้อมูล
+            </h5>
+            <button
+                type="button"
+                data-close-modal="delete"
+                class="text-gray-400 hover:text-gray-600 transition">
+                <span class="text-xl leading-none">&times;</span>
+            </button>
+        </div>
+
+        <div class="px-6 py-4">
+            <p class="text-sm text-gray-700">
+                คุณต้องการลบข้อมูลสถานที่ฝึกงานรายการนี้หรือไม่?
+                <br>
+                <span class="text-xs text-gray-500">
+                    เมื่อยืนยันแล้วจะไม่สามารถกู้คืนได้
+                </span>
+            </p>
+        </div>
+
+        <div class="px-6 py-4 border-t border-gray-200 flex justify-end gap-2">
+            <button
+                type="button"
+                data-close-modal="delete"
+                class="px-4 py-2 text-sm font-bold rounded border border-gray-300 text-gray-700 hover:bg-gray-50">
+                ยกเลิก
+            </button>
+            <button
+                type="button"
+                id="confirmDeleteBtn"
+                class="px-4 py-2 text-sm font-bold rounded bg-red-600 hover:bg-red-700 text-white">
+                ลบข้อมูล
+            </button>
+        </div>
     </div>
 </div>
 
@@ -685,6 +727,7 @@ $baseUrl = $_ENV['BASE_URL'] ?? '';
 
     $(function() {
         const $addModal = $('#addInternshipModal');
+        const $addForm = $('#addForm');
         const $editModal = $('#editInternshipModal');
         const $editForm = $('#editForm');
 
@@ -729,23 +772,33 @@ $baseUrl = $_ENV['BASE_URL'] ?? '';
                 searchable: false,
                 render: function(data, type, row) {
                     return `
-                            <button
-                                type="button"
-                                class="whitespace-nowrap btn-edit inline-flex items-center px-3 py-2 text-xs font-bold rounded-md bg-blue-600 hover:bg-blue-700 text-white transition"
-                                data-id="${row.id}"
-                                data-organization="${escapeHtml(row.organization)}"
-                                data-province="${escapeHtml(row.province)}"
-                                data-faculty="${escapeHtml(row.faculty)}"
-                                data-program="${escapeHtml(row.program)}"
-                                data-major="${escapeHtml(row.major)}"
-                                data-year="${escapeHtml(row.year)}"
-                                data-total_student="${escapeHtml(row.total_student)}"
-                                data-contact="${escapeHtml(row.contact)}"
-                                data-score="${escapeHtml(row.score ?? '')}"
-                            >
-                                แก้ไข
-                            </button>
-                        `;
+                <div class="flex gap-2">
+                    <button
+                        type="button"
+                        class="whitespace-nowrap btn-edit inline-flex items-center px-3 py-2 text-xs font-bold rounded-md bg-blue-600 hover:bg-blue-700 text-white transition"
+                        data-id="${row.id}"
+                        data-organization="${escapeHtml(row.organization)}"
+                        data-province="${escapeHtml(row.province)}"
+                        data-faculty="${escapeHtml(row.faculty)}"
+                        data-program="${escapeHtml(row.program)}"
+                        data-major="${escapeHtml(row.major)}"
+                        data-year="${escapeHtml(row.year)}"
+                        data-total_student="${escapeHtml(row.total_student)}"
+                        data-contact="${escapeHtml(row.contact)}"
+                        data-score="${escapeHtml(row.score ?? '')}"
+                    >
+                        แก้ไข
+                    </button>
+
+                    <button
+                        type="button"
+                        class="whitespace-nowrap btn-delete inline-flex items-center px-3 py-2 text-xs font-bold rounded-md bg-red-600 hover:bg-red-700 text-white transition"
+                        data-id="${row.id}"
+                    >
+                        ลบ
+                    </button>
+                </div>
+            `;
                 }
             }],
             createdRow: function(row, data) {
@@ -858,7 +911,7 @@ $baseUrl = $_ENV['BASE_URL'] ?? '';
             }
         });
 
-        // Submit Edit (AJAX)
+        // Submit edit (AJAX)
         $editForm.on('submit', async function(e) {
             e.preventDefault();
 
@@ -895,6 +948,130 @@ $baseUrl = $_ENV['BASE_URL'] ?? '';
                 dt.ajax.reload(null, false);
 
                 $editModal.addClass('hidden').removeClass('flex');
+            } catch (err) {
+                console.error(err);
+                alert('ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้');
+            }
+        });
+
+        // Submit add (AJAX)
+        $addForm.on('submit', async function(e) {
+            e.preventDefault();
+
+            const form = this;
+            const formData = new FormData(form);
+
+            try {
+                const res = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                });
+
+                const raw = await res.text();
+                let result;
+
+                try {
+                    result = JSON.parse(raw);
+                } catch (parseErr) {
+                    console.warn('Response ไม่ใช่ JSON ล้วน', raw);
+                    result = {
+                        success: false,
+                        message: 'Invalid JSON response'
+                    };
+                }
+
+                if (result.success === false) {
+                    alert(result.message || 'เกิดข้อผิดพลาดในการเพิ่มข้อมูลฝึกงาน');
+                    return;
+                }
+
+                dt.ajax.reload(null, false);
+                form.reset();
+
+                if (addDropdowns && typeof addDropdowns.resetValues === 'function') {
+                    addDropdowns.resetValues();
+                }
+
+                $addModal.addClass('hidden').removeClass('flex');
+            } catch (err) {
+                console.error(err);
+                alert('ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้');
+            }
+        });
+
+        // Delete internship data record
+        const $deleteModal = $('#deleteConfirmModal');
+        let deleteId = null;
+
+        // Show the modal when clicking delete button
+        $(document).on('click', '.btn-delete', function() {
+            const id = $(this).data('id');
+
+            if (!id) {
+                alert('ไม่พบรหัสข้อมูลสำหรับลบ');
+                return;
+            }
+
+            deleteId = id; // เก็บ id ไว้ใช้ตอนกด "ลบข้อมูล"
+            $deleteModal.removeClass('hidden').addClass('flex');
+        });
+
+        // Close the modal when cancel
+        $('[data-close-modal="delete"]').on('click', function() {
+            $deleteModal.addClass('hidden').removeClass('flex');
+            deleteId = null;
+        });
+
+        // Click outside the modal to close the modal
+        $deleteModal.on('click', function(e) {
+            if (e.target === this) {
+                $deleteModal.addClass('hidden').removeClass('flex');
+                deleteId = null;
+            }
+        });
+
+        // If the delete button in the modal was clicked
+        $('#confirmDeleteBtn').on('click', async function() {
+            if (!deleteId) {
+                alert('ไม่พบรหัสข้อมูลสำหรับลบ');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('id', deleteId);
+
+            try {
+                const res = await fetch('./actions/delete_internship.php', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                });
+
+                const raw = await res.text();
+                let result;
+
+                try {
+                    result = JSON.parse(raw);
+                } catch (e) {
+                    console.warn('Response ไม่ใช่ JSON ล้วน', raw);
+                    alert('รูปแบบข้อมูลตอบกลับไม่ถูกต้อง');
+                    return;
+                }
+
+                if (!result.success) {
+                    alert(result.message || 'เกิดข้อผิดพลาดในการลบข้อมูล');
+                    return;
+                }
+
+                // If successfully deleted then close the modal
+                $deleteModal.addClass('hidden').removeClass('flex');
+                deleteId = null;
+                dt.ajax.reload(null, false);
             } catch (err) {
                 console.error(err);
                 alert('ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้');
