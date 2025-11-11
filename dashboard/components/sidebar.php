@@ -61,6 +61,17 @@ $fullUrl = $protocol . $host . $requestUri;
             </a>
         </div>
 
+        <div class="px-2">
+            <a href="page_insert_excel.php"
+                class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium
+                <?php echo $fullUrl === $baseDashboardUrl . '/page_insert_excel.php'
+                    ? 'bg-sky-600/90 shadow-sm'
+                    : 'hover:bg-sky-400/70'; ?>">
+                <i class="fas fa-fw fa-chart-area text-sm"></i>
+                <span class="sidebar-text">เพิ่มข้อมูล Excel</span>
+            </a>
+        </div>
+
         <!-- Divider -->
         <div class="sidebar-divider border-t border-sky-400/60 mx-3"></div>
 

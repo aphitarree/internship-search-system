@@ -32,6 +32,15 @@ require_once __DIR__ . '/../includes/auth.php';
 </head>
 
 <body id="page-top" class="bg-gray-100 text-gray-800">
+
+    <?php if (!empty($_SESSION['message'])): ?>
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <?php echo $_SESSION['message']; ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <?php unset($_SESSION['message']); ?>
+    <?php endif; ?>
+
     <div id="wrapper" class="min-h-screen flex">
 
         <!-- Sidebar -->
@@ -46,9 +55,6 @@ require_once __DIR__ . '/../includes/auth.php';
                 <!-- Topbar -->
                 <?php include_once './components/dashboard_navbar.php'; ?>
 
-                <!-- Begin Page Content -->
-
-
                 <?php include_once './components/table_insert_excel.php' ?>
 
 
@@ -61,11 +67,10 @@ require_once __DIR__ . '/../includes/auth.php';
                     </button>
                 </form>
             </div>
-        </div>
 
-        <!-- Footer -->
-        <?php include_once './components/footer.php'; ?>
-    </div>
+            <!-- Footer -->
+            <?php include_once './components/footer.php'; ?>
+        </div>
     </div>
 
     <!-- Scroll to Top Button-->

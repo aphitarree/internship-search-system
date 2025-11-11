@@ -25,13 +25,10 @@ if (isset($_POST['submit'])) {
     if (in_array($FileExtension, $allowed_extension)) {
         $spreadsheet = IOFactory::load($FileTmpPath);
         $data = $spreadsheet->getActiveSheet()->toArray();
-        print_r($data); // Debug: แสดงข้อมูลที่อ่านได้จากไฟล์ Excel
 
         $count = 0;
         foreach ($data as $row) {
             if ($count > 0) {
-                // 📘 ปรับให้สอดคล้องกับไฟล์ Excel ของคุณ
-                // ตัวอย่าง: [คณะ, หลักสูตร, สาขา, หน่วยงาน, จังหวัด, ตำแหน่ง, ปี, จำนวนฝึกงาน]
                 $organization = trim($row[0]);
                 $province = trim($row[1]);
                 $faculty = trim($row[2]);
@@ -43,7 +40,9 @@ if (isset($_POST['submit'])) {
                 $score = trim($row[8]);
 
                 // 🔍 ค้นหา major_id จากตาราง faculty_program_major
-                $sql_major = "SELECT id FROM faculty_program_major WHERE faculty = :faculty AND program = :program AND major = :major LIMIT 1";
+                $sql_major = "SELECT id FROM faculty_program_major 
+                          WHERE faculty = :faculty AND program = :program AND major = :major 
+                          LIMIT 1";
                 $stmt_major = $conn->prepare($sql_major);
                 $stmt_major->bindParam(':faculty', $faculty);
                 $stmt_major->bindParam(':program', $program);
@@ -54,20 +53,13 @@ if (isset($_POST['submit'])) {
                 if ($major_row) {
                     $major_id = $major_row['id'];
                 } else {
-                    // ❗❗❗❗ ถ้ายังไม่มีข้อมูล ให้เพิ่มเข้า faculty_program_major ก่อน ❗❗❗
-                    $insert_major = "INSERT INTO faculty_program_major (faculty, program, major) VALUES (:faculty, :program, :major)";
-                    $stmt_insert_major = $conn->prepare($insert_major);
-                    $stmt_insert_major->bindParam(':faculty', $faculty);
-                    $stmt_insert_major->bindParam(':program', $program);
-                    $stmt_insert_major->bindParam(':major', $major);
-                    $stmt_insert_major->execute();
-                    $major_id = $conn->lastInsertId();
+                    $_SESSION['message'] = "ข้อมูลไม่ถูกต้อง: {$faculty} / {$program} / {$major}";
+                    continue;
                 }
 
-                // 💾 บันทึกเข้า internship_stats โดยใช้ major_id ที่ได้
                 $sql = 'INSERT INTO internship_stats 
-                    (organization,  province, major_id, year, total_student, contact, score)
-                    VALUES (:organization,  :province, :major_id, :year, :total_student, :contact, :score)';
+                    (organization, province, major_id, year, total_student, contact, score)
+                    VALUES (:organization, :province, :major_id, :year, :total_student, :contact, :score)';
                 $stmt = $conn->prepare($sql);
                 $stmt->bindParam(':organization', $organization);
                 $stmt->bindParam(':province', $province);
@@ -77,6 +69,7 @@ if (isset($_POST['submit'])) {
                 $stmt->bindParam(':contact', $contact);
                 $stmt->bindParam(':score', $score);
                 $stmt->execute();
+
                 $_SESSION['inserted_data'][] = [
                     'organization' => $organization,
                     'province' => $province,
@@ -91,16 +84,15 @@ if (isset($_POST['submit'])) {
 
                 $msg = true;
             } else {
-                $count = 1; // ✅✅✅✅✅✅✅✅✅✅✅ใช้เลข 1 ไม่ต้องใส่เป็น string✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅
+                $count = 1;
             }
         }
 
-        if (isset($msg)) {
-            $_SESSION['massge'] = "✅ Successfully Imported";
-        } else {
-            $_SESSION['massge'] = "⚠️ Not Imported";
-        }
-        header("Location: {$baseUrl}/dashboard/table_insert_excel.php");
-        exit(0);
+        $_SESSION['massge'] = isset($msg)
+            ? "✅ Successfully Imported"
+            : "⚠️ Not Imported";
+
+        header("Location: {$baseUrl}/dashboard/page_insert_excel.php");
+        exit;
     }
 }
