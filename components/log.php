@@ -1,8 +1,8 @@
 <?php
 require_once __DIR__ . '/../config/db_config.php';
 
-if (session_status() === PHP_SESSION_NONE) {
-}
+// if (session_status() === PHP_SESSION_NONE) {
+// }
 
 $user_id = $_SESSION['user_id'] ?? NULL;
 $ip_address = $_SERVER['REMOTE_ADDR'] ?? 'UNKNOWN';
