@@ -58,14 +58,46 @@ require_once __DIR__ . '/../includes/auth.php';
                 <?php include_once './components/table_insert_excel.php' ?>
 
 
-                <form action="<?php echo $baseUrl; ?>/dashboard/actions/insert_excel.php" method="POST" enctype="multipart/form-data">
-                    <input type="file" name="excel_file" required>
-                    <button
-                        class="flex h-11 rounded-md bg-slate-200 hover:bg-slate-300 px-4 text-center justify-center items-center"
-                        type="submit" name="submit">
-                        เพิ่มฐานข้อมูลจาก Excel
-                    </button>
+                <form action="<?php echo $baseUrl; ?>/dashboard/actions/insert_excel.php"
+                    method="POST"
+                    enctype="multipart/form-data"
+                    class="w-full bg-white shadow-md rounded-xl p-6 border border-gray-200 mt-6">
+
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                        <!-- หัวข้อ -->
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-file-excel text-green-600 text-xl"></i>
+                            <h2 class="text-lg font-semibold text-gray-700">
+                                เพิ่มฐานข้อมูลจาก Excel
+                            </h2>
+                        </div>
+
+                        <!-- ปุ่มอัปโหลด -->
+                        <div class="flex items-center gap-3">
+                            <input
+                                type="file"
+                                name="excel_file"
+                                id="excel_file"
+                                accept=".xlsx,.xls"
+                                required
+                                class="block w-64 text-sm text-gray-700 bg-gray-50 border border-gray-300 rounded-md cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-600 file:text-white hover:file:bg-indigo-700 transition" />
+
+                            <button
+                                type="submit"
+                                name="submit"
+                                class="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-5 py-2.5 rounded-md shadow-sm transition focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-1">
+                                <i class="fas fa-upload"></i>
+                                อัปโหลดไฟล์
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- คำแนะนำเล็กๆ ใต้ input -->
+                    <p class="mt-3 text-sm text-gray-500">
+                        รองรับไฟล์ Excel เท่านั้น (.xlsx หรือ .xls)
+                    </p>
                 </form>
+
             </div>
 
             <!-- Footer -->
