@@ -52,7 +52,17 @@ if (isset($_POST['submit'])) {
                 if ($major_row) {
                     $major_id = $major_row['id'];
                 } else {
-                    $_SESSION['invalid_rows'][] = "{$organization} / {$province} / {$faculty} / {$program} / {$major} / {$year} / {$total_student} / {$contact} / {$score}";
+                    $_SESSION['invalid_rows'][] = [
+                        'organization' => $organization,
+                        'province' => $province,
+                        'faculty' => $faculty,
+                        'program' => $program,
+                        'major' => $major,
+                        'year' => $year,
+                        'total_student' => $total_student,
+                        'contact' => $contact,
+                        'score' => $score
+                    ];
                     continue;
                 }
 

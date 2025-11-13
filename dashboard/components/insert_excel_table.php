@@ -131,27 +131,32 @@ $baseUrl = $_ENV['BASE_URL'] ?? '';
                             </thead>
                             <tbody class="divide-y divide-gray-100">
                                 <?php foreach ($_SESSION['invalid_rows'] as $i => $row):
-                                    $parts = explode(' / ', $row);
+
                                 ?>
                                     <tr>
                                         <td><?= $i + 1 ?></td>
-                                        <td><?= htmlspecialchars($parts[0] ?? '-') ?></td>
-                                        <td><?= htmlspecialchars($parts[1] ?? '-') ?></td>
-                                        <td><?= htmlspecialchars($parts[2] ?? '-') ?></td>
-                                        <td><?= htmlspecialchars($parts[3] ?? '-') ?></td>
-                                        <td><?= htmlspecialchars($parts[4] ?? '-') ?></td>
-                                        <td><?= htmlspecialchars($parts[5] ?? '-') ?></td>
-                                        <td><?= htmlspecialchars($parts[6] ?? '-') ?></td>
-                                        <td><?= htmlspecialchars($parts[7] ?? '-') ?></td>
-                                        <td><?= htmlspecialchars($parts[8] ?? '-') ?></td>
+                                        <td><?= htmlspecialchars($row['organization'] ?? '-') ?></td>
+                                        <td><?= htmlspecialchars($row['province'] ?? '-') ?></td>
+                                        <td><?= htmlspecialchars($row['faculty'] ?? '-') ?></td>
+                                        <td><?= htmlspecialchars($row['program'] ?? '-') ?></td>
+                                        <td><?= htmlspecialchars($row['major'] ?? '-') ?></td>
+                                        <td><?= htmlspecialchars($row['year'] ?? '-') ?></td>
+                                        <td><?= htmlspecialchars($row['total_student'] ?? '-') ?></td>
+                                        <td class="cell-contact"><?= htmlspecialchars($row['contact'] ?? '-') ?></td>
+                                        <td><?= htmlspecialchars($row['score'] ?? '-') ?></td>
+
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
 
-                        <?php unset($_SESSION['invalid_rows']); ?>
+
                     </div>
                 </div>
+                <a href="<?php echo $baseUrl; ?>/dashboard/actions/edit_excel_form.php"
+                    class="inline-block px-5 py-2.5 bg-blue-600 text-white font-medium text-sm rounded-lg shadow hover:bg-blue-700 focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all duration-200">
+                    <i class="fas fa-edit mr-2"></i> ข้อมูลที่ไม่ถูกต้อง
+                </a>
             </div>
         <?php endif; ?>
     <?php endif; ?>
