@@ -7,7 +7,7 @@
         <input type="hidden" name="academic-year" value="<?= htmlspecialchars($_GET['academic-year'] ?? '') ?>">
 
         <button type="submit"
-            class="bg-green-500 flex h-11 rounded-md text-white hover:bg-sky-600 px-4 text-center justify-center items-center">
+            class="flex h-11 rounded-md text-white bg-green-500 hover:bg-green-600 px-4 text-center justify-center items-center">
             ดาวน์โหลด Excel (.csv)
         </button>
     </form>
