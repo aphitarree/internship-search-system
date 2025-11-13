@@ -31,7 +31,7 @@ if (
         <input type="hidden" name="province" value="<?= htmlspecialchars($province) ?>">
         <input type="hidden" name="academic-year" value="<?= htmlspecialchars($academicYear) ?>">
         <button
-            class="flex h-11 bg-red-500 hover:bg-red-600 rounded-md px-4 text-center justify-center items-center"
+            class="flex h-11 bg-red-500 hover:bg-red-600 text-white rounded-md px-4 text-center justify-center items-center"
             type="submit">
             ดาวน์โหลดรายการที่เลือก (.pdf)
         </button>
