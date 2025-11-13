@@ -29,16 +29,44 @@ if (isset($_POST['submit'])) {
         $count = 0;
         foreach ($data as $row) {
             if ($count > 0) {
-                $organization = trim($row[0]);
-                $province = trim($row[1]);
-                $faculty = trim($row[2]);
-                $program = trim($row[3]);
-                $major = trim($row[4]);
-                $year = trim($row[5]);
-                $total_student = trim($row[6]);
-                $contact = trim($row[7]);
-                $score = trim($row[8]);
-
+                $organization = trim($row[0] ?? '');
+                $province = trim($row[1] ?? '');
+                $faculty = trim($row[2] ?? '');
+                $program = trim($row[3] ?? '');
+                $major = trim($row[4] ?? '');
+                $year = trim($row[5] ?? '');
+                $total_student = trim($row[6] ?? '');
+                $contact = trim($row[7] ?? '');
+                $score = trim($row[8] ?? '');
+                echo "<pre>";
+                print_r([$faculty, $program, $major]);
+                echo "</pre>";
+                if (
+                    $organization === '' ||
+                    $province === '' ||
+                    $faculty === '' ||
+                    $program === '' ||
+                    $major === '' ||
+                    $year === '' ||
+                    $total_student === '' ||
+                    $contact === '' ||
+                    $score === ''
+                ) {
+                    // ถ้าว่าง → เก็บเป็นข้อมูลผิดพลาด
+                    $_SESSION['invalid_rows'][] = [
+                        'organization' => $organization,
+                        'province' => $province,
+                        'faculty' => $faculty,
+                        'program' => $program,
+                        'major' => $major,
+                        'year' => $year,
+                        'total_student' => $total_student,
+                        'contact' => $contact,
+                        'score' => $score,
+                        'error' => 'ข้อมูลไม่ครบ'
+                    ];
+                    continue;
+                }
                 $sql_major = "SELECT id FROM faculty_program_major 
                       WHERE faculty = :faculty AND program = :program AND major = :major 
                       LIMIT 1";
@@ -96,11 +124,6 @@ if (isset($_POST['submit'])) {
             } else {
                 $count = 1;
             }
-        }
-
-        if (!empty($_SESSION['invalid_rows'])) {
-            $invalid_list = implode("<br>", $_SESSION['invalid_rows']);
-            $_SESSION['message'] = "⚠️ ข้อมูลไม่ถูกต้อง:<br>" . $invalid_list;
         }
 
         $_SESSION['massge'] = isset($msg)

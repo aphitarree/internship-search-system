@@ -11,7 +11,9 @@ use Dotenv\Dotenv;
 
 $dotenv = Dotenv::createImmutable(dirname(dirname(__DIR__)));
 $dotenv->load();
-
+// if (!isset($_POST['submit'])) {
+//     unset($_SESSION['invalid_rows']);
+// }
 $baseUrl = $_ENV['BASE_URL'] ?? '';
 ?>
 
@@ -155,7 +157,7 @@ $baseUrl = $_ENV['BASE_URL'] ?? '';
                 </div>
                 <a href="<?php echo $baseUrl; ?>/dashboard/actions/edit_excel_form.php"
                     class="inline-block px-5 py-2.5 bg-blue-600 text-white font-medium text-sm rounded-lg shadow hover:bg-blue-700 focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all duration-200">
-                    <i class="fas fa-edit mr-2"></i> ข้อมูลที่ไม่ถูกต้อง
+                    <i class="fas fa-edit mr-2"></i> ดาวน์โหลด Excel(ข้อมูลที่ไม่ถูกต้อง)
                 </a>
             </div>
         <?php endif; ?>
