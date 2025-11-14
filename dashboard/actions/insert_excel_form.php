@@ -1,11 +1,7 @@
 <?php
 session_start();
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 require_once __DIR__ . '/../../vendor/autoload.php';
 require_once __DIR__ . '/../../config/db_config.php';
-
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Dotenv\Dotenv;
@@ -14,16 +10,18 @@ $dotenv = Dotenv::createImmutable(dirname(dirname(__DIR__)));
 $dotenv->load();
 
 $baseUrl = $_ENV['BASE_URL'];
+
 if (isset($_POST['submit'])) {
+    unset($_SESSION['invalid_rows']);
 
-    $FileTmpPath = $_FILES['excel_file']['tmp_name'];
-    $FileName = $_FILES['excel_file']['name'];
-    $FileExtension = pathinfo($FileName, PATHINFO_EXTENSION);
+    $fileTmpPath = $_FILES['excel_file']['tmp_name'];
+    $fileName = $_FILES['excel_file']['name'];
+    $fileExtension = pathinfo($fileName, PATHINFO_EXTENSION);
 
-    $allowed_extension = ['csv', 'xls', 'xlsx'];
+    $allowedExtensions = ['csv', 'xls', 'xlsx'];
 
-    if (in_array($FileExtension, $allowed_extension)) {
-        $spreadsheet = IOFactory::load($FileTmpPath);
+    if (in_array($fileExtension, $allowedExtensions)) {
+        $spreadsheet = IOFactory::load($fileTmpPath);
         $data = $spreadsheet->getActiveSheet()->toArray();
 
         $count = 0;
@@ -35,12 +33,9 @@ if (isset($_POST['submit'])) {
                 $program = trim($row[3] ?? '');
                 $major = trim($row[4] ?? '');
                 $year = trim($row[5] ?? '');
-                $total_student = trim($row[6] ?? '');
+                $totalStudent = trim($row[6] ?? '');
                 $contact = trim($row[7] ?? '');
                 $score = trim($row[8] ?? '');
-                echo "<pre>";
-                print_r([$faculty, $program, $major]);
-                echo "</pre>";
                 if (
                     $organization === '' ||
                     $province === '' ||
@@ -48,11 +43,10 @@ if (isset($_POST['submit'])) {
                     $program === '' ||
                     $major === '' ||
                     $year === '' ||
-                    $total_student === '' ||
+                    $totalStudent === '' ||
                     $contact === '' ||
                     $score === ''
                 ) {
-                    // ถ้าว่าง → เก็บเป็นข้อมูลผิดพลาด
                     $_SESSION['invalid_rows'][] = [
                         'organization' => $organization,
                         'province' => $province,
@@ -60,25 +54,27 @@ if (isset($_POST['submit'])) {
                         'program' => $program,
                         'major' => $major,
                         'year' => $year,
-                        'total_student' => $total_student,
+                        'total_student' => $totalStudent,
                         'contact' => $contact,
                         'score' => $score,
                         'error' => 'ข้อมูลไม่ครบ'
                     ];
                     continue;
                 }
-                $sql_major = "SELECT id FROM faculty_program_major 
-                      WHERE faculty = :faculty AND program = :program AND major = :major 
-                      LIMIT 1";
-                $stmt_major = $conn->prepare($sql_major);
-                $stmt_major->bindParam(':faculty', $faculty);
-                $stmt_major->bindParam(':program', $program);
-                $stmt_major->bindParam(':major', $major);
-                $stmt_major->execute();
-                $major_row = $stmt_major->fetch(PDO::FETCH_ASSOC);
+                $sqlMajor = "
+                    SELECT id FROM faculty_program_major 
+                    WHERE faculty = :faculty AND program = :program AND major = :major 
+                    LIMIT 1
+                ";
+                $stmtMajor = $conn->prepare($sqlMajor);
+                $stmtMajor->bindParam(':faculty', $faculty);
+                $stmtMajor->bindParam(':program', $program);
+                $stmtMajor->bindParam(':major', $major);
+                $stmtMajor->execute();
+                $majorRow = $stmtMajor->fetch(PDO::FETCH_ASSOC);
 
-                if ($major_row) {
-                    $major_id = $major_row['id'];
+                if ($majorRow) {
+                    $majorId = $majorRow['id'];
                 } else {
                     $_SESSION['invalid_rows'][] = [
                         'organization' => $organization,
@@ -87,23 +83,23 @@ if (isset($_POST['submit'])) {
                         'program' => $program,
                         'major' => $major,
                         'year' => $year,
-                        'total_student' => $total_student,
+                        'total_student' => $totalStudent,
                         'contact' => $contact,
                         'score' => $score
                     ];
                     continue;
                 }
 
-                // ✅ Insert ข้อมูล
+                // Insert if the data is correct
                 $sql = 'INSERT INTO internship_stats 
                 (organization, province, major_id, year, total_student, contact, score)
                 VALUES (:organization, :province, :major_id, :year, :total_student, :contact, :score)';
                 $stmt = $conn->prepare($sql);
                 $stmt->bindParam(':organization', $organization);
                 $stmt->bindParam(':province', $province);
-                $stmt->bindParam(':major_id', $major_id);
+                $stmt->bindParam(':major_id', $majorId);
                 $stmt->bindParam(':year', $year);
-                $stmt->bindParam(':total_student', $total_student);
+                $stmt->bindParam(':total_student', $totalStudent);
                 $stmt->bindParam(':contact', $contact);
                 $stmt->bindParam(':score', $score);
                 $stmt->execute();
@@ -115,7 +111,7 @@ if (isset($_POST['submit'])) {
                     'program' => $program,
                     'major' => $major,
                     'year' => $year,
-                    'total_student' => $total_student,
+                    'total_student' => $totalStudent,
                     'contact' => $contact,
                     'score' => $score
                 ];
@@ -126,9 +122,9 @@ if (isset($_POST['submit'])) {
             }
         }
 
-        $_SESSION['massge'] = isset($msg)
-            ? "✅ Successfully Imported"
-            : "⚠️ Not Imported";
+        $_SESSION['message'] = isset($msg)
+            ? "นำเข้าข้อมูลสำเร็จ"
+            : "นำเข้าข้อมูลไม่สำเร็จ";
 
         header("Location: {$baseUrl}/dashboard/insert_excel.php");
         exit;

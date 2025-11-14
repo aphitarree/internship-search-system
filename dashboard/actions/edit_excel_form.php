@@ -10,18 +10,18 @@ $dotenv->load();
 
 $baseUrl = $_ENV['BASE_URL'] ?? '';
 
-// ตั้งค่าหัวไฟล์ให้เบราว์เซอร์ดาวน์โหลดเป็น CSV
+// Set the filename for the wrong records file
 header('Content-Type: text/csv; charset=utf-8');
-header('Content-Disposition: attachment; filename=internship_report(ข้อมูลที่ไม่ถูกต้อง).csv');
+header('Content-Disposition: attachment; filename=internship_report (ข้อมูลที่ไม่ถูกต้อง).csv');
 
-// เขียน CSV ออกไป
+// Write the csv file
 $output = fopen('php://output', 'w');
-
 fwrite($output, "\xEF\xBB\xBF");
-// เขียนหัวตาราง
+
+// Set the column name for the file
 fputcsv($output, ['บริษัท', 'จังหวัด', 'คณะ', 'หลักสูตร', 'สาขา', 'ปีการศึกษา', 'จำนวนที่รับ', 'ข้อมูลการติดต่อ', 'คะแนน']);
 
-// เขียนข้อมูล
+// Write the wrong data to the file
 if (isset($_SESSION['invalid_rows']) && count($_SESSION['invalid_rows']) > 0) {
     foreach ($_SESSION['invalid_rows'] as $row) {
         fputcsv($output, [
@@ -42,5 +42,5 @@ if (isset($_SESSION['invalid_rows']) && count($_SESSION['invalid_rows']) > 0) {
 
 
 fclose($output);
-unset($_SESSION['invalid_rows']);
+// unset($_SESSION['invalid_rows']);
 exit;
