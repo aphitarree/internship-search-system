@@ -1,4 +1,6 @@
 <?php
+ini_set('max_execution_time', '300');
+ini_set('memory_limit', '4096M');
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -285,6 +287,12 @@ ob_start();
                     <td class="text-center"><?= htmlspecialchars($row['contact']) ?></td>
                     <td class="text-center"><?= htmlspecialchars($row['score']) ?></td>
                 </tr>
+
+                <?php
+                if (($index + 1) % 50 === 0) {
+                    echo "<!--CHUNK_BREAK-->";
+                }
+                ?>
             <?php endforeach ?>
         </tbody>
     </table>
@@ -294,5 +302,12 @@ ob_start();
 
 <?php
 $html = ob_get_clean();
-$mpdf->WriteHTML($html);
+$chunks = explode('<!--CHUNK_BREAK-->', $html);
+foreach ($chunks as $chunk) {
+    if (trim($chunk) === '') {
+        continue;
+    }
+    $mpdf->WriteHTML($chunk);
+}
+
 $mpdf->Output('internship_report.pdf', 'I');
