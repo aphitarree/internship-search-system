@@ -83,16 +83,16 @@
         </div>
 
         <!-- Form (ขวา) -->
-        <div class="lg:w-1/2 max-w-lg w-full pt-2 pb-6 px-6 sm:pt-4 sm:pb-8 mx-auto lg:mx-0">
-            <h2 class="text-xl font-semibold text-center text-gray-900 dark:text-white mb-4 mt-0">
+        <div class="lg:w-1/2 max-w-lg w-full pt-1 pb-6 px-6 sm:pt-4 sm:pb-8 mx-auto lg:mx-0">
+            <h2 class="text-xl font-semibold text-center">
                 แบบประเมินความพึงพอใจ
             </h2>
 
-            <div id="formMessage" class="mb-4 text-center"></div>
+            <div id="formMessage" class=" text-center"></div>
 
             <form id="feedbackForm" method="POST">
 
-                <fieldset class="mb-5">
+                <fieldset class="mb-1">
                     <legend class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                         เนื้อหานี้มีประโยชน์หรือไม่? <span class="text-red-500">*</span>
                     </legend>
@@ -118,7 +118,7 @@
                     </label>
 
                     <textarea id="comment" name="comment"
-                        class="block w-full h-32 resize-none rounded-md border-gray-300 shadow-sm
+                        class="block w-full h-24 resize-none rounded-md border-gray-300 shadow-sm mt-1
                         focus:border-sky-500 focus:ring-sky-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600"
                         placeholder="  ความคิดเห็นของคุณ...">
                     </textarea>
