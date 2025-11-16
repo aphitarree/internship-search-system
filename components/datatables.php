@@ -47,6 +47,7 @@
                         <th class="w-[180px] p-2">สาขา</th>
                         <th class="w-[120px] p-2">ปีการศึกษา</th>
                         <th class="w-[130px] p-2">จำนวนที่รับ</th>
+                        <th class="w-[130px] p-2">MOU</th>
                         <th class="w-[180px] p-2">ข้อมูลการติดต่อ</th>
                         <th class="w-[65px] p-2">คะแนน</th>
                     </tr>
@@ -109,6 +110,9 @@
                     className: '!text-center p-2'
                 }, {
                     data: 'total_student',
+                    className: '!text-center p-2'
+                }, {
+                    data: 'mou_status',
                     className: '!text-center p-2'
                 }, {
                     data: 'contact',

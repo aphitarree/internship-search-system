@@ -42,6 +42,7 @@ try {
         `major_id` INT UNSIGNED NOT NULL COMMENT 'FK to faculty_program_major',
         `year` SMALLINT UNSIGNED NOT NULL COMMENT 'ปี พ.ศ.',
         `total_student` INT UNSIGNED DEFAULT 0 COMMENT 'จำนวนผู้ฝึกงาน',
+        `mou_status` VARCHAR(100) DEFAULT NULL COMMENT 'สถานะ MOU',
         `contact` VARCHAR(255) NOT NULL COMMENT 'ช่องทางการติดต่อ',
         `score` VARCHAR(5) NOT NULL COMMENT 'คะแนนความพึงพอใจ',
         `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -79,6 +80,7 @@ try {
         `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         `is_useful` ENUM('มีประโยชน์', 'ไม่มีประโยชน์') NOT NULL COMMENT 'ประเมินว่ามีประโยชน์หรือไม่',
         `comment` VARCHAR(200) DEFAULT NULL COMMENT 'คอมเมนต์เพิ่มเติม (จำกัด 200 ตัวอักษร)',
+        `ip_address` VARCHAR(45) NOT NULL COMMENT 'IP ของผู้ใช้',
         `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT 'วันที่บันทึกข้อมูล'
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
     ";

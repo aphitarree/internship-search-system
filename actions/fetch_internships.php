@@ -26,8 +26,9 @@ try {
         5 => 'faculty_program_major.major',
         6 => 'internship_stats.year',
         7 => 'internship_stats.total_student',
-        8 => 'internship_stats.contact',
-        9 => 'internship_stats.score',
+        8 => 'internship_stats.mou_status',
+        9 => 'internship_stats.contact',
+        10 => 'internship_stats.score',
     ];
 
     $orderParts = [];
@@ -55,12 +56,14 @@ try {
     if ($query !== '') {
         $whereParts[] = '(
             internship_stats.organization LIKE :query OR
-            internship_stats.province     LIKE :query OR
+            internship_stats.province LIKE :query OR
             faculty_program_major.faculty LIKE :query OR
             faculty_program_major.program LIKE :query OR
-            faculty_program_major.major   LIKE :query OR
-            internship_stats.contact      LIKE :query OR
-            CAST(internship_stats.year  AS CHAR)  LIKE :query OR
+            faculty_program_major.major LIKE :query OR
+            internship_stats.contact LIKE :query OR
+            CAST(internship_stats.total_student AS CHAR)  LIKE :query OR
+            internship_stats.mou_status LIKE :query OR
+            CAST(internship_stats.year AS CHAR)  LIKE :query OR
             CAST(internship_stats.score AS CHAR) LIKE :query
         )';
         $params[':query'] = '%' . $query . '%';
@@ -124,7 +127,7 @@ try {
     $stmt->execute();
     $filtered = (int)$stmt->fetchColumn();
 
-    // ดึงข้อมูลเพจ
+    // Fetch the data from the database
     $stmt = $conn->prepare("
         SELECT
             faculty_program_major.faculty,
@@ -132,10 +135,11 @@ try {
             faculty_program_major.major,
             internship_stats.organization,
             internship_stats.province,
-            internship_stats.contact,
-            internship_stats.score,
             internship_stats.year,
-            internship_stats.total_student
+            internship_stats.total_student,
+            internship_stats.mou_status,
+            internship_stats.contact,
+            internship_stats.score
         FROM internship_stats
         INNER JOIN faculty_program_major
             ON internship_stats.major_id = faculty_program_major.id
@@ -163,6 +167,7 @@ try {
             'major'          => $row['major'] ?? '',
             'year'           => (string)($row['year'] ?? ''),
             'total_student'  => (int)($row['total_student'] ?? 0),
+            'mou_status'     => $row['mou_status'] ?? '',
             'contact'        => $row['contact'] ?? '',
             'score'          => (string)($row['score'] ?? ''),
         ], $rows),

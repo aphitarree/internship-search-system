@@ -111,11 +111,6 @@ foreach ($params as $key => &$val) {
 $stmt->execute();
 $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-/* echo '<pre>';
-print_r($rows);
-echo '</pre>'; */
-
-
 // Get all company values into a new array
 $allCompany = array_column($rows, 'organization');
 
@@ -134,11 +129,9 @@ $student = array_column($rows, 'total_student');
 // Count all students amount
 $allStudent = $totalStudents = array_sum($student);
 
-// Date of report
-// ตั้ง timezone ให้เป็นเวลาไทย
+// Set to Bangkok timezone
 date_default_timezone_set('Asia/Bangkok');
 
-// สร้าง array ชื่อเดือนภาษาไทย
 $thaiMonths = [
     1 => 'มกราคม',
     'กุมภาพันธ์',
@@ -154,12 +147,12 @@ $thaiMonths = [
     'ธันวาคม'
 ];
 
-// ดึงวันที่ปัจจุบัน
-$day = date('j'); // วันที่
-$month = $thaiMonths[(int)date('n')]; // เดือนเป็นคำไทย
-$year = date('Y') + 543; // แปลงเป็น พ.ศ.
+// Get the current date
+$day = date('j'); // Day
+$month = $thaiMonths[(int)date('n')]; // Thai month (words)
+$year = date('Y') + 543; // Convert to B.E.
 
-// รวมเป็นข้อความวันที่
+// Join the words
 $thaiDate = "$day $month $year";
 
 ob_start();
@@ -316,6 +309,7 @@ ob_start();
                 <th>สาขา</th>
                 <th class="text-center">ปีการศึกษา</th>
                 <th class="text-center">จำนวน&nbsp;(คน)</th>
+                <th class="text-center">MOU</th>
                 <th>ข้อมูลการติดต่อ</th>
                 <th>คะแนน</th>
             </tr>
@@ -331,7 +325,8 @@ ob_start();
                     <td class="text-left"><?= htmlspecialchars($row['major']) ?></td>
                     <td><?= htmlspecialchars($row['year']) ?></td>
                     <td class="text-center"><?= htmlspecialchars($row['total_student']) ?></td>
-                    <td class="text-center"><?= htmlspecialchars($row['contact']) ?></td>
+                    <td class="text-center"><?= htmlspecialchars($row['mou_status']) ?></td>
+                    <td class="text-left"><?= htmlspecialchars($row['contact']) ?></td>
                     <td class="text-center"><?= htmlspecialchars($row['score']) ?></td>
                 </tr>
 

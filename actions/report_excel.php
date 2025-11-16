@@ -7,35 +7,35 @@ use Dotenv\Dotenv;
 $dotenv = Dotenv::createImmutable(dirname(__DIR__));
 $dotenv->load();
 
-// รับตัวกรองจาก query string
+// Get the url search queries
 $faculty = $_GET['faculty'] ?? null;
 $program = $_GET['program'] ?? null;
 $major = $_GET['major'] ?? null;
 $province = $_GET['province'] ?? null;
 $academicYear = $_GET['academic-year'] ?? null;
 
-// สร้าง WHERE clause เหมือนใน index.php
+// Build the WHERE clause
 $whereClause = [];
 $params = [];
 
 if ($faculty) {
-    $whereClause[] = 'fpm.faculty = :faculty';
+    $whereClause[] = 'faculty_program_major.faculty = :faculty';
     $params[':faculty'] = htmlspecialchars($faculty);
 }
 if ($program) {
-    $whereClause[] = 'fpm.program = :program';
+    $whereClause[] = 'faculty_program_major.program = :program';
     $params[':program'] = htmlspecialchars($program);
 }
 if ($major) {
-    $whereClause[] = 'fpm.major = :major';
+    $whereClause[] = 'faculty_program_major.major = :major';
     $params[':major'] = htmlspecialchars($major);
 }
 if ($province) {
-    $whereClause[] = 'stats.province = :province';
+    $whereClause[] = 'internship_stats.province = :province';
     $params[':province'] = htmlspecialchars($province);
 }
 if ($academicYear) {
-    $whereClause[] = 'stats.year = :academic_year';
+    $whereClause[] = 'internship_stats.year = :academic_year';
     $params[':academic_year'] = htmlspecialchars($academicYear);
 }
 
@@ -44,50 +44,53 @@ if (!empty($whereClause)) {
     $whereSql = 'WHERE ' . implode(' AND ', $whereClause);
 }
 
-// ดึงข้อมูลจากฐานข้อมูล
+// Fetch data from the database
 $sql = "
     SELECT
-        stats.id,
-        stats.organization AS company_name,
-        stats.province,
-        fpm.faculty AS faculty_name,
-        fpm.program AS program_name,
-        fpm.major AS major_name,
-        stats.year AS academic_year,
-        stats.total_student AS internship_count,
-        stats.contact AS contact,
-        stats.score AS score
-    FROM internship_stats stats
-    LEFT JOIN faculty_program_major fpm ON stats.major_id = fpm.id
+        internship_stats.id,
+        internship_stats.organization,
+        internship_stats.province,
+        faculty_program_major.faculty,
+        faculty_program_major.program,
+        faculty_program_major.major,
+        internship_stats.year,
+        internship_stats.total_student,
+        internship_stats.mou_status,
+        internship_stats.contact,
+        internship_stats.score
+    FROM internship_stats
+    LEFT JOIN faculty_program_major ON internship_stats.major_id = faculty_program_major.id
     $whereSql
-    ORDER BY stats.id DESC
+    ORDER BY internship_stats.id DESC
 ";
 
 $stmt = $conn->prepare($sql);
 $stmt->execute($params);
 $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// ตั้งค่าหัวไฟล์ให้เบราว์เซอร์ดาวน์โหลดเป็น CSV
+// Set headers to force the browser to download as a CSV file
 header('Content-Type: text/csv; charset=utf-8');
 header('Content-Disposition: attachment; filename=internship_report.csv');
 
-// เขียน CSV ออกไป
+// Write the csv file from the browser
 $output = fopen('php://output', 'w');
 
 fwrite($output, "\xEF\xBB\xBF");
-// เขียนหัวตาราง
-fputcsv($output, ['บริษัท', 'จังหวัด', 'คณะ', 'หลักสูตร', 'สาขา', 'ปีการศึกษา', 'จำนวนที่รับ', 'ข้อมูลการติดต่อ', 'คะแนน']);
 
-// เขียนข้อมูล
+// CSV column names
+fputcsv($output, ['บริษัท', 'จังหวัด', 'คณะ', 'หลักสูตร', 'สาขา', 'ปีการศึกษา', 'จำนวนที่รับ', 'MOU', 'ข้อมูลการติดต่อ', 'คะแนน']);
+
+// Write the data to the CSV file
 foreach ($data as $row) {
     fputcsv($output, [
-        $row['company_name'],
+        $row['organization'],
         $row['province'],
-        $row['faculty_name'],
-        $row['program_name'],
-        $row['major_name'],
-        $row['academic_year'],
-        $row['internship_count'],
+        $row['faculty'],
+        $row['program'],
+        $row['major'],
+        $row['year'],
+        $row['total_student'],
+        $row['mou_status'],
         $row['contact'],
         $row['score'],
     ]);
