@@ -12,10 +12,9 @@
 </head>
 <!-- FOOTER -->
 <footer class="text-gray-800 dark:text-gray-200 bg-neutral-800 py-8">
-    <div class="max-w-screen-xl mx-auto px-4 flex flex-col lg:flex-row lg:justify-between gap-8">
-
+    <div class="max-w-screen-xl mx-auto flex flex-col lg:flex-row lg:justify-start gap-5">
         <!-- ข้อความรายละเอียด (ซ้าย) -->
-        <div class="lg:w-1/2 space-y-3 text-center lg:text-left">
+        <div class="lg:w-[38%] space-y-3 text-center lg:text-left">
             <p>
                 <strong class="text-lg font-semibold text-red-700 dark:text-sky-400">
                     สำนักส่งเสริมวิชาการและงานทะเบียน
@@ -66,16 +65,14 @@
                 <a
                     href="https://lin.ee/phdTWXn"
                     target="_blank"
-                    class="text-gray-500 transition duration-200 transform hover:-translate-y-1
-            border bg-white rounded-full p-2 inline-flex items-center justify-center">
+                    class="text-gray-500 transition duration-200 transform hover:-translate-y-1 border bg-white rounded-full p-2 inline-flex items-center justify-center">
                     <i class="text-2xl text-green-600 fa-brands fa-line"></i>
                 </a>
 
                 <!-- Email -->
                 <a
                     href="mailto:saraban-reg@dusit.ac.th"
-                    class="text-gray-500 transition duration-200 transform hover:-translate-y-1
-            border bg-white rounded-full p-2 inline-flex items-center justify-center">
+                    class="text-gray-500 transition duration-200 transform hover:-translate-y-1 border bg-white rounded-full p-2 inline-flex items-center justify-center">
                     <i class="text-2xl text-sky-600 fa-solid fa-envelope"></i>
                 </a>
             </section>
@@ -83,7 +80,7 @@
         </div>
 
         <!-- Form (ขวา) -->
-        <div class="lg:w-1/2 max-w-lg w-full pt-1 pb-6 px-6 sm:pt-4 sm:pb-8 mx-auto lg:mx-0">
+        <div class="lg:w-1/2 max-w-lg w-full px-4 sm:pb-8 mx-auto lg:mx-0">
             <h2 class="text-xl font-semibold text-center">
                 แบบประเมินความพึงพอใจ
             </h2>
