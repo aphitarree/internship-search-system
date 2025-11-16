@@ -19,10 +19,7 @@ $output = fopen('php://output', 'w');
 fwrite($output, "\xEF\xBB\xBF");
 
 // Set the column name for the file
-fputcsv($output, ['บริษัท', 'จังหวัด', 'คณะ', 'หลักสูตร', 'สาขา', 'ปีการศึกษา', 'จำนวนที่รับ', 'ข้อมูลการติดต่อ', 'คะแนน', 'MOU']);
-
-
-
+fputcsv($output, ['บริษัท', 'จังหวัด', 'คณะ', 'หลักสูตร', 'สาขา', 'ปีการศึกษา', 'จำนวนที่รับ', 'MOU', 'ข้อมูลการติดต่อ', 'คะแนน']);
 
 fclose($output);
 // unset($_SESSION['invalid_rows']);

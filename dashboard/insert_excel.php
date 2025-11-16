@@ -62,10 +62,14 @@ require_once __DIR__ . '/../includes/auth.php';
                     class="container mx-auto px-4 lg:px-8 mt-4">
 
                     <section>
-                        <h1 class="text-2xl font-semibold text-gray-800 mb-5">
+                        <h1 class="flex items-center text-2xl font-semibold text-gray-800 mb-5">
                             <i class="fas fa-file-excel text-green-600 text-2xl"></i>
                             เพิ่มฐานข้อมูลจาก Excel
+                            <div class="ml-3">
+                                <?php include_once './components/button_excel_template.php'; ?>
+                            </div>
                         </h1>
+
 
                         <!-- ปุ่มอัปโหลด -->
                         <main class="flex items-center gap-3">
@@ -111,8 +115,6 @@ require_once __DIR__ . '/../includes/auth.php';
                         </ul>
                     </section>
                 </form>
-
-                <?php include_once './components/botton_excel_template.php'; ?>
 
                 <div class="container mx-auto px-4 py-6 lg:px-8 lg:py-2">
                     <?php include_once './components/insert_excel_table.php' ?>
