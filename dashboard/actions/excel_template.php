@@ -12,7 +12,7 @@ $baseUrl = $_ENV['BASE_URL'] ?? '';
 
 // Set the filename for the wrong records file
 header('Content-Type: text/csv; charset=utf-8');
-header('Content-Disposition: attachment; filename=internship_report (ข้อมูลที่ไม่ถูกต้อง).csv');
+header('Content-Disposition: attachment; filename=แบบฟอร์มเก็บข้อมูลนักศึกษาฝึกงาน.csv');
 
 // Write the csv file
 $output = fopen('php://output', 'w');
