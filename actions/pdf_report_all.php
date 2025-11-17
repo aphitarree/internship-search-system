@@ -69,6 +69,7 @@ $sql = "
         internship_stats.total_student,
         internship_stats.mou_status,
         internship_stats.contact,
+        internship_stats.affiliation,
         internship_stats.score
     FROM internship_stats INNER JOIN faculty_program_major ON internship_stats.major_id = faculty_program_major.id
     ORDER BY internship_stats.year DESC
@@ -279,6 +280,7 @@ ob_start();
                 <th class="text-center">MOU</th>
                 <th>ข้อมูลการติดต่อ</th>
                 <th>คะแนน</th>
+                <th>สังกัด</th>
             </tr>
         </thead>
         <tbody>
@@ -295,6 +297,7 @@ ob_start();
                     <td class="text-center"><?= htmlspecialchars($row['mou_status']) ?></td>
                     <td class="text-left"><?= htmlspecialchars($row['contact']) ?></td>
                     <td class="text-center"><?= htmlspecialchars($row['score']) ?></td>
+                    <td class="text-left"><?= htmlspecialchars($row['affiliation']) ?></td>
                 </tr>
 
                 <?php

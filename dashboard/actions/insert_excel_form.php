@@ -37,6 +37,7 @@ if (isset($_POST['submit'])) {
                 $mouStatus = trim($row[7] ?? '');
                 $contact = trim($row[8] ?? '');
                 $score = trim($row[9] ?? '');
+                $affiliation = trim($row[10] ?? '');
                 if (
                     $organization === '' ||
                     $province === '' ||
@@ -47,7 +48,8 @@ if (isset($_POST['submit'])) {
                     $totalStudent === '' ||
                     $mouStatus === '' ||
                     $contact === '' ||
-                    $score === ''
+                    $score === '' ||
+                    $affiliation === ''
                 ) {
                     $_SESSION['invalid_rows'][] = [
                         'organization' => $organization,
@@ -60,6 +62,7 @@ if (isset($_POST['submit'])) {
                         'mou_status' => $mouStatus,
                         'contact' => $contact,
                         'score' => $score,
+                        'affiliation' => $affiliation,
                         'error' => 'ข้อมูลไม่ครบ'
                     ];
                     continue;
@@ -89,15 +92,16 @@ if (isset($_POST['submit'])) {
                         'total_student' => $totalStudent,
                         'mou_status' => $mouStatus,
                         'contact' => $contact,
-                        'score' => $score
+                        'score' => $score,
+                        'affiliation' => $affiliation,
                     ];
                     continue;
                 }
 
                 // Insert if the data is correct
                 $sql = 'INSERT INTO internship_stats 
-                (organization, province, major_id, year, total_student, mou_status, contact, score)
-                VALUES (:organization, :province, :major_id, :year, :total_student, :mou_status, :contact, :score)';
+                (organization, province, major_id, year, total_student, mou_status, contact, score, affiliation)
+                VALUES (:organization, :province, :major_id, :year, :total_student, :mou_status, :contact, :score , :affiliation)';
                 $stmt = $conn->prepare($sql);
                 $stmt->bindParam(':organization', $organization);
                 $stmt->bindParam(':province', $province);
@@ -107,6 +111,7 @@ if (isset($_POST['submit'])) {
                 $stmt->bindParam(':mou_status', $mouStatus);
                 $stmt->bindParam(':contact', $contact);
                 $stmt->bindParam(':score', $score);
+                $stmt->bindParam(':affiliation', $affiliation);
                 $stmt->execute();
 
                 $_SESSION['inserted_data'][] = [
@@ -119,7 +124,8 @@ if (isset($_POST['submit'])) {
                     'total_student' => $totalStudent,
                     'mou_status' => $mouStatus,
                     'contact' => $contact,
-                    'score' => $score
+                    'score' => $score,
+                    'affiliation' => $affiliation
                 ];
 
                 $msg = true;
