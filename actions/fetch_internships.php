@@ -70,7 +70,7 @@ try {
             CAST(internship_stats.total_student AS CHAR)  LIKE :query OR
             internship_stats.mou_status LIKE :query OR
             CAST(internship_stats.year AS CHAR)  LIKE :query OR
-            CAST(internship_stats.score AS CHAR) LIKE :query 
+            CAST(internship_stats.score AS CHAR) LIKE :query OR
             CAST(internship_stats.affiliation AS CHAR) LIKE :query 
         )';
         $params[':query'] = '%' . $query . '%';

@@ -26,6 +26,7 @@ $totalStudentInput = trim($_POST['total_student'] ?? '');
 $mouStatus = trim($_POST['mou_status'] ?? '');
 $score = trim($_POST['score'] ?? '');
 $contact = trim($_POST['contact'] ?? '');
+$affiliation = trim($_POST['affiliation'] ?? '');
 
 if ($id <= 0) {
     echo json_encode([
@@ -38,7 +39,7 @@ if ($id <= 0) {
 try {
     // Fetch current year, total_student, mou_status for prevent inserting null value to the database
     $stmtCurrentData = $conn->prepare("
-        SELECT year, total_student, mou_status
+        SELECT year, total_student, mou_status, affiliation
         FROM internship_stats
         WHERE id = :id
         LIMIT 1
@@ -74,6 +75,13 @@ try {
         $mouStatusToSave = $currentData['mou_status'];
     } else {
         $mouStatusToSave = $mouStatus;
+    }
+
+    // If the affiliation is null eject the insertion
+    if ($affiliation === '') {
+        $affiliationToSave = $currentData['affiliation'] ?? '';
+    } else {
+        $affiliationToSave = $affiliation;
     }
 
     // If the faculty, program, and major is null eject the insertion
@@ -123,7 +131,8 @@ try {
             total_student  = :total_student,
             mou_status     = :mou_status,
             score          = :score,
-            contact        = :contact
+            contact        = :contact,
+            affiliation    = :affiliation
         WHERE id = :id
         LIMIT 1
     ";
@@ -140,6 +149,7 @@ try {
         $stmt->bindParam(':score', $score, PDO::PARAM_STR);
     }
     $stmt->bindParam(':contact', $contact, PDO::PARAM_STR);
+    $stmt->bindParam(':affiliation', $affiliationToSave, PDO::PARAM_STR);
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
     $stmt->execute();
 
@@ -157,6 +167,7 @@ try {
             'mou_status' => $mouStatusToSave,
             'score' => $score === '' ? null : $score,
             'contact' => $contact,
+            'affiliation' => $affiliation,
         ]
     ]);
     exit;
