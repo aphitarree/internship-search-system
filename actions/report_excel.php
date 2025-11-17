@@ -7,11 +7,6 @@ use Dotenv\Dotenv;
 $dotenv = Dotenv::createImmutable(dirname(__DIR__));
 $dotenv->load();
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    echo json_encode(['success' => false, 'message' => 'Method not allowed']);
-    exit;
-}
-
 // Get the url search queries
 $faculty = $_GET['faculty'] ?? null;
 $program = $_GET['program'] ?? null;

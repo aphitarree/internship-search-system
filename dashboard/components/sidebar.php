@@ -91,6 +91,18 @@ $fullUrl = $protocol . $host . $requestUri;
             </a>
         </div>
 
+        <!-- View feedback page -->
+        <div class="px-2">
+            <a href="feedback.php"
+                class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium
+                <?php echo $fullUrl === $baseDashboardUrl . '/feedback.php'
+                    ? 'bg-sky-600/90 shadow-sm'
+                    : 'hover:bg-sky-400/70'; ?>">
+                <i class="fa-solid fa-comments"></i>
+                <span class="sidebar-text">ข้อเสนอแนะ</span>
+            </a>
+        </div>
+
         <!-- Insert Excel -->
         <div class="px-2">
             <a href="insert_excel.php"
