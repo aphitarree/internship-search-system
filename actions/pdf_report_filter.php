@@ -7,11 +7,6 @@ require_once __DIR__ . '/../config/db_config.php';
 use Mpdf\Config\ConfigVariables;
 use Mpdf\Config\FontVariables;
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    echo json_encode(['success' => false, 'message' => 'Method not allowed']);
-    exit;
-}
-
 $faculty = $_POST['faculty'] ?? null;
 $program = $_POST['program'] ?? null;
 $major = $_POST['major'] ?? null;
