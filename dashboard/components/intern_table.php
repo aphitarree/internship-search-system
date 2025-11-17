@@ -833,7 +833,7 @@ $baseUrl = $_ENV['BASE_URL'] ?? '';
                 type: 'POST'
             },
             columnDefs: [{
-                targets: 12,
+                targets: [9, 12],
                 visible: false,
             }],
             columns: [{
