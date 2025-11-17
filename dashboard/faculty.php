@@ -9,13 +9,6 @@ $dotenv->load();
 
 $baseUrl = $_ENV['BASE_URL'];
 
-session_start();
-
-if (!isset($_SESSION['checklogin']) || $_SESSION['checklogin'] !== true) {
-    header("Location: {$baseUrl}/dashboard/login.php");
-    exit;
-}
-
 ?>
 <!DOCTYPE html>
 <html lang="th">
