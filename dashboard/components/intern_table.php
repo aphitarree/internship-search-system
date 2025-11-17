@@ -784,6 +784,10 @@ $baseUrl = $_ENV['BASE_URL'] ?? '';
                 url: './actions/fetch_internships.php',
                 type: 'POST'
             },
+            columnDefs: [{
+                targets: 11,
+                visible: false,
+            }],
             columns: [{
                 data: null,
                 render: function(data, type, row, meta) {
