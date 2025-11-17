@@ -78,7 +78,7 @@
             <form id="feedbackForm" method="POST">
 
                 <fieldset class="mb-1">
-                    <legend class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <legend class="block text-md font-medium text-gray-700 dark:text-gray-300 mb-2">
                         เนื้อหานี้มีประโยชน์หรือไม่? <span class="text-red-500">*</span>
                     </legend>
 
@@ -86,19 +86,19 @@
                         <div class="flex items-center">
                             <input id="useful_yes" name="is_useful" type="radio" value="มีประโยชน์" required
                                 class="h-4 w-4 text-sky-600 focus:ring-sky-500 dark:bg-gray-700 dark:border-gray-600">
-                            <label for="useful_yes" class="ml-2 text-sm">มีประโยชน์</label>
+                            <label for="useful_yes" class="ml-2 text-md">มีประโยชน์</label>
                         </div>
 
                         <div class="flex items-center">
                             <input id="useful_no" name="is_useful" type="radio" value="ไม่มีประโยชน์" required
                                 class="h-4 w-4 text-sky-600 focus:ring-sky-500 dark:bg-gray-700 dark:border-gray-600">
-                            <label for="useful_no" class="ml-2 text-sm">ไม่มีประโยชน์</label>
+                            <label for="useful_no" class="ml-2 text-md">ไม่มีประโยชน์</label>
                         </div>
                     </div>
                 </fieldset>
 
                 <div class="mb-2">
-                    <label for="comment" class="block text-sm font-medium">
+                    <label for="comment" class="block text-md font-medium">
                         ข้อเสนอแนะเพิ่มเติม (ไม่เกิน 200 ตัวอักษร)
                     </label>
 
@@ -108,11 +108,11 @@
                         placeholder="  ความคิดเห็นของคุณ...">
                     </textarea>
 
-                    <p id="charCount" class="mt-1 text-xs text-gray-500 dark:text-gray-400">0 / 200</p>
+                    <p id="charCount" class="mt-1 text-sm text-gray-500 dark:text-gray-400">0 / 200</p>
                 </div>
 
                 <button type="submit" id="submitButton"
-                    class="w-full py-2 px-4 rounded-md shadow-sm text-sm font-medium text-white bg-sky-600 hover:bg-sky-700 focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 dark:bg-sky-500 dark:hover:bg-sky-600">
+                    class="w-full py-2 px-4 rounded-md shadow-sm text-md font-medium text-white bg-sky-600 hover:bg-sky-700 focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 dark:bg-sky-500 dark:hover:bg-sky-600">
                     ส่งข้อเสนอแนะ
                 </button>
 
