@@ -9,16 +9,16 @@ $baseUrl = $_ENV['BASE_URL'];
 ?>
 
 <!-- FOOTER -->
-<footer class="text-gray-800 dark:text-gray-200 bg-neutral-800 py-8">
+<footer class="text-gray-800 bg-neutral-800 py-8">
     <div class="max-w-screen-xl mx-auto flex flex-col lg:flex-row lg:justify-start gap-5">
         <!-- ข้อความรายละเอียด (ซ้าย) -->
         <div class="lg:w-[38%] space-y-3 text-center lg:text-left">
             <p>
-                <strong class="text-lg font-semibold text-red-700 dark:text-sky-400">
+                <strong class="text-lg font-semibold text-red-700">
                     สำนักส่งเสริมวิชาการและงานทะเบียน
                 </strong>
                 <br>
-                <strong class="text-sm tracking-wide uppercase text-stone-950 dark:text-gray-400">
+                <strong class="text-sm tracking-wide uppercase text-stone-950">
                     THE OFFICE OF ACADEMIC PROMOTION AND REGISTRATION
                 </strong>
             </p>
@@ -80,7 +80,7 @@ $baseUrl = $_ENV['BASE_URL'];
             <div class="pt-2">
                 <a
                     href="<?= $baseUrl . '/dashboard' ?>"
-                    class="w-full py-2 px-2 rounded-md shadow-sm text-md font-medium text-white bg-sky-600 hover:bg-sky-700 focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 dark:bg-sky-500 dark:hover:bg-sky-600">
+                    class="w-full py-2 px-2 rounded-md shadow-sm text-md font-medium text-white bg-sky-600 hover:bg-sky-700 focus:ring-2 focus:ring-offset-2 focus:ring-sky-500-600">
                     เข้าสู่ระบบ (เจ้าหน้าที่)
                 </a>
             </div>
@@ -97,20 +97,20 @@ $baseUrl = $_ENV['BASE_URL'];
             <form id="feedbackForm" method="POST">
 
                 <fieldset class="mb-1">
-                    <legend class="block text-md font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <legend class="block text-md font-medium text-gray-700 mb-2">
                         เนื้อหานี้มีประโยชน์หรือไม่? <span class="text-red-500">*</span>
                     </legend>
 
                     <div class="flex items-center gap-x-6 justify-center">
                         <div class="flex items-center">
                             <input id="useful_yes" name="is_useful" type="radio" value="มีประโยชน์" required
-                                class="h-4 w-4 text-sky-600 focus:ring-sky-500 dark:bg-gray-700 dark:border-gray-600">
+                                class="h-4 w-4 text-sky-600 focus:ring-sky-500">
                             <label for="useful_yes" class="ml-2 text-md">มีประโยชน์</label>
                         </div>
 
                         <div class="flex items-center">
                             <input id="useful_no" name="is_useful" type="radio" value="ไม่มีประโยชน์" required
-                                class="h-4 w-4 text-sky-600 focus:ring-sky-500 dark:bg-gray-700 dark:border-gray-600">
+                                class="h-4 w-4 text-sky-600 focus:ring-sky-500">
                             <label for="useful_no" class="ml-2 text-md">ไม่มีประโยชน์</label>
                         </div>
                     </div>
@@ -123,13 +123,13 @@ $baseUrl = $_ENV['BASE_URL'];
 
                     <textarea id="comment" name="comment"
                         class="block w-full h-24 resize-none rounded-md border-gray-300 shadow-sm mt-1
-                        focus:border-sky-500 focus:ring-sky-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 p-2" placeholder="ความคิดเห็นของคุณ..."></textarea>
+                        focus:border-sky-500 focus:ring-sky-500 sm:text-sm p-2" placeholder="ความคิดเห็นของคุณ..."></textarea>
 
-                    <p id="charCount" class="mt-1 text-sm text-gray-500 dark:text-gray-400">0 / 200</p>
+                    <p id="charCount" class="mt-1 text-sm text-gray-500">0 / 200</p>
                 </div>
 
                 <button type="submit" id="submitButton"
-                    class="w-full py-2 px-4 rounded-md shadow-sm text-md font-medium text-white bg-sky-600 hover:bg-sky-700 focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 dark:bg-sky-500 dark:hover:bg-sky-600">
+                    class="w-full py-2 px-4 rounded-md shadow-sm text-md font-medium text-white bg-sky-600 hover:bg-sky-700 focus:ring-2 focus:ring-offset-2 focus:ring-sky-500-600">
                     ส่งข้อเสนอแนะ
                 </button>
 
@@ -138,7 +138,7 @@ $baseUrl = $_ENV['BASE_URL'];
     </div>
 
 </footer>
-<div class="bg-neutral-900 text-center py-3 text-sm text-gray-700 dark:text-gray-300">
+<div class="bg-neutral-900 text-center py-3 text-sm text-gray-700">
     © <?= date('Y') ?> REGIS.DUSIT.AC.TH. ALL RIGHTS RESERVED.
 </div>
 

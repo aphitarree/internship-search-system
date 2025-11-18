@@ -556,7 +556,7 @@ try {
                 populateMajors(allMajors);
                 populatePrograms(allPrograms);
                 populateProvinces(provinces);
-                populateAcademicYears(academicYears);
+                populateAcademicYears(academicYears.map(String));
 
                 // Clear URL search queries
                 window.history.replaceState({}, '', window.location.pathname);

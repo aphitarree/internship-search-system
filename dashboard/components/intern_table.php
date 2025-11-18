@@ -399,8 +399,7 @@ try {
                         <select
                             name="affiliation"
                             id="edit-affiliation"
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            required>
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                             <option value="">-เลือกสังกัด-</option>
                         </select>
                     </div>
@@ -583,6 +582,7 @@ try {
         "ภาครัฐ",
         "ภาคเอกชน",
         "รัฐวิสาหกิจ",
+        "ไม่มี",
     ]
 
     const sortChoice = (a, b) => {
@@ -1042,12 +1042,20 @@ try {
                     }
                 }
 
+                // if (editDropdowns.affiliationChoices) {
+                //     if (affiliation) {
+                //         editDropdowns.affiliationChoices.setChoiceByValue(affiliation);
+                //     } else {
+                //         editDropdowns.affiliationChoices.setChoiceByValue('');
+                //     }
+                // }
+
                 if (editDropdowns.affiliationChoices) {
+                    editDropdowns.affiliationChoices.removeActiveItems();
+
                     if (affiliation) {
                         editDropdowns.affiliationChoices.setChoiceByValue(affiliation);
-                    } else {
-                        editDropdowns.affiliationChoices.setChoiceByValue('');
-                    }
+                    } else {}
                 }
             }
 
