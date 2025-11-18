@@ -225,14 +225,18 @@ try {
                         <input
                             type="number"
                             name="total_student"
+                            min="0"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             required>
                     </div>
                     <div>
-                        <label class="block text-gray-700 text-sm font-bold mb-2">คะแนน</label>
+                        <label class="block text-gray-700 text-sm font-bold mb-2">คะแนน (0 - 5)</label>
                         <input
-                            type="text"
+                            type="number"
                             name="score"
+                            min="0"
+                            max="5"
+                            step="0.1"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             required>
                     </div>
@@ -378,6 +382,7 @@ try {
                         <input
                             type="number"
                             name="total_student"
+                            min="0"
                             id="edit-total_student"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             required>

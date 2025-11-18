@@ -20,13 +20,14 @@ $faculty = trim($_POST['faculty'] ?? '');
 $program = trim($_POST['program'] ?? '');
 $major = trim($_POST['major'] ?? '');
 $yearRaw = trim($_POST['year'] ?? '');
-$totalRaw = $_POST['total_student'] ?? '';
+$affiliation = trim($_POST['affiliation'] ?? '');
+$totalStudent = $_POST['total_student'] ?? '';
 $mouStatus = trim($_POST['mou_status'] ?? '');
 $score = trim($_POST['score'] ?? '');
 $contact = trim($_POST['contact'] ?? '');
 
 $year = (ctype_digit($yearRaw) ? (int)$yearRaw : 0);
-$totalStudent = (ctype_digit((string)$totalRaw) ? (int)$totalRaw : 0);
+$totalStudent = (ctype_digit((string)$totalStudent) ? (int)$totalStudent : 0);
 
 if (
     $organization === '' ||
@@ -36,11 +37,12 @@ if (
     $major === '' ||
     $year <= 0 ||
     $totalStudent <= 0 ||
-    $mouStatus === ''
+    $mouStatus === '' ||
+    $affiliation === ''
 ) {
     echo json_encode([
         'success' => false,
-        'message' => 'กรุณากรอกข้อมูลให้ครบถ้วน (โดยเฉพาะบริษัท / จังหวัด / คณะ / หลักสูตร / สาขา / ปีการศึกษา / จำนวนที่รับ)'
+        'message' => 'กรุณากรอกข้อมูลให้ครบถ้วน (บริษัท / จังหวัด / คณะ / หลักสูตร / สาขา / ปีการศึกษา / สังกัด / จำนวนที่รับ / MOU / คะแนน / ข้อมูลการติดต่อ)'
     ]);
     exit;
 }
@@ -92,9 +94,9 @@ try {
 
     $sql = "
         INSERT INTO internship_stats
-            (organization, province, major_id, year, total_student, mou_status, contact, score)
+            (organization, province, major_id, year, affiliation, total_student, mou_status, contact, score)
         VALUES
-            (:organization, :province, :major_id, :year, :total_student, :mou_status, :contact, :score)
+            (:organization, :province, :major_id, :year, :affiliation, :total_student, :mou_status, :contact, :score)
     ";
 
     $stmt = $conn->prepare($sql);
@@ -102,6 +104,7 @@ try {
     $stmt->bindParam(':province', $province, PDO::PARAM_STR);
     $stmt->bindParam(':major_id', $majorId, PDO::PARAM_INT);
     $stmt->bindParam(':year', $year, PDO::PARAM_INT);
+    $stmt->bindParam(':affiliation', $affiliation, PDO::PARAM_STR);
     $stmt->bindParam(':total_student', $totalStudent,  PDO::PARAM_INT);
     $stmt->bindParam(':mou_status', $mouStatus, PDO::PARAM_STR);
     $stmt->bindParam(':contact', $contact, PDO::PARAM_STR);

@@ -120,7 +120,7 @@
                     className: 'text-center p-2'
                 }, {
                     data: 'contact',
-                    className: '!text-center p-2'
+                    className: 'text-left p-2'
                 }, {
                     data: 'score',
                     className: '!text-center p-2'

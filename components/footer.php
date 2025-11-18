@@ -88,7 +88,7 @@ $baseUrl = $_ENV['BASE_URL'];
 
         <!-- Form (ขวา) -->
         <div class="lg:w-1/2 max-w-lg w-full px-4 sm:pb-8 mx-auto lg:mx-0 text-gray-400">
-            <h2 class="text-xl font-semibold text-center">
+            <h2 class="text-xl font-semibold text-center mb-2">
                 แบบประเมินความพึงพอใจ
             </h2>
 
@@ -96,8 +96,8 @@ $baseUrl = $_ENV['BASE_URL'];
 
             <form id="feedbackForm" method="POST">
 
-                <fieldset class="mb-1">
-                    <legend class="block text-md font-medium text-gray-400 mb-2">
+                <fieldset class="mb-3">
+                    <legend class="block text-md font-medium text-gray-400 mb-3">
                         เนื้อหานี้มีประโยชน์หรือไม่? <span class="text-red-500">*</span>
                     </legend>
 
