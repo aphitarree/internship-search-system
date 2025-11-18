@@ -24,13 +24,13 @@ $baseUrl = $_ENV['BASE_URL'];
     <!-- Font Awesome -->
     <link href="../vendor/fortawesome/font-awesome/css/all.min.css" rel="stylesheet" type="text/css">
 
-    <!-- Tailwind (CDN) -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind-->
+    <link rel="stylesheet" href="../public/css/tailwind.css">
 
-    <!-- DataTables + jQuery (CDN)  -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <!-- Datatables-->
+    <link rel="stylesheet" href="../public/css/jquery.dataTables.min.css">
+    <script src="../public/js/jquery-3.7.1.min.js"></script>
+    <script src="../public/js/jquery.dataTables.min.js"></script>
 
     <!-- Thai Sarabun font -->
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
@@ -90,12 +90,8 @@ $baseUrl = $_ENV['BASE_URL'];
         <i class="fas fa-angle-up"></i>
     </button>
 
-
-
     <!-- JS -->
-    <script src="../vendor/jquery/jquery.min.js"></script>
-
-
+    <!-- <script src="../vendor/jquery/jquery.min.js"></script> -->
 </body>
 
 </html>

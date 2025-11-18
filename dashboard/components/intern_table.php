@@ -40,17 +40,15 @@ try {
 }
 ?>
 
-<!-- DataTables CSS -->
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+<!-- Datatables CSS -->
+<link rel="stylesheet" href="../public/css/jquery.dataTables.min.css">
 
-<!-- Choices.js CSS สำหรับ dropdown สวย ๆ + searchable -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
+<!-- Choices.js CSS -->
+<link rel="stylesheet" href="../public/css/choices.min.css" />
 
-<!-- DataTables + Buttons CSS -->
-<link rel="stylesheet"
-    href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
-<link rel="stylesheet"
-    href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
+<!-- Datatables Button -->
+<link rel="stylesheet" href="../public/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="../public/css/buttons.dataTables.min.css">
 
 <section class="mt-4">
     <style>
@@ -59,6 +57,14 @@ try {
             white-space: normal;
             word-wrap: break-word;
             word-break: break-word;
+        }
+
+        #internshipTable_length {
+            padding-top: 0.15rem;
+        }
+
+        #internshipTable_length {
+            padding-right: 0.5rem;
         }
     </style>
 
@@ -87,7 +93,7 @@ try {
             </button>
         </div>
 
-        <div class="p-4">
+        <div class="p-2">
             <div class="overflow-x-auto no-scrollbar">
                 <table
                     id="internshipTable"
@@ -472,16 +478,17 @@ try {
     </div>
 </div>
 
-<!-- jQuery + DataTables JS -->
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
 
-<!-- Choices.js JS -->
-<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+<!-- Datatables-->
+<script src="../public/js/jquery-3.7.1.min.js"></script>
+<script src="../public/js/jquery.dataTables.min.js"></script>
 
-<!-- DataTables + Buttons JS -->
-<script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
+<!-- Choices.js-->
+<script src="../public/js/choices.min.js"></script>
+
+<!-- Datatables Button -->
+<script src="../public/js/dataTables.buttons.min.js"></script>
+<script src="../public/js/buttons.colVis.min.js"></script>
 
 <script>
     // Escape HTML when put the string to the data-... or innerHTML
@@ -848,7 +855,7 @@ try {
             processing: true,
             serverSide: true,
             scrollX: false,
-            dom: 'Bfrtip',
+            dom: 'lBfrtip',
             buttons: [{
                 extend: 'colvis',
                 text: 'เลือกคอลัมน์',

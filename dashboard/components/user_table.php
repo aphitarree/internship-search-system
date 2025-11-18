@@ -11,6 +11,19 @@ $baseUrl = $_ENV['BASE_URL'] ?? '';
 ?>
 
 <section>
+    <style>
+        #userTable_filter {
+            padding-top: 0.35rem;
+        }
+
+        #userTable_length {
+            padding-top: 0.67rem;
+        }
+
+        #userTable_wrapper {
+            padding-bottom: 0.35rem;
+        }
+    </style>
     <!-- ตารางข้อมูลผู้ใช้ -->
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
         <h1 class="text-2xl font-semibold text-gray-800">
@@ -34,7 +47,7 @@ $baseUrl = $_ENV['BASE_URL'] ?? '';
             </button>
         </div>
 
-        <div class="p-4">
+        <div class="px-4">
             <div class="overflow-x-auto no-scrollbar">
                 <table
                     id="userTable"
@@ -267,11 +280,11 @@ $baseUrl = $_ENV['BASE_URL'] ?? '';
 </div>
 
 <!-- jQuery + DataTables JS -->
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="../public/js/jquery-3.7.1.js"></script>
+<script src="../public/js/jquery.dataTables.min.js"></script>
 
 <!-- Choices.js JS -->
-<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+<script src="../public/js/choices.min.js" defer></script>
 
 <script>
     // helper escape HTML เวลาเอาข้อความไปใส่ใน data-* / innerHTML

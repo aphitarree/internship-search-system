@@ -10,6 +10,19 @@ $dotenv->load();
 $baseUrl = $_ENV['BASE_URL'] ?? '';
 ?>
 <section class="bg-gray-100">
+    <style>
+        #facultyTable_filter {
+            padding-top: 0.35rem;
+        }
+
+        #facultyTable_length {
+            padding-top: 0.67rem;
+        }
+
+        #facultyTable_wrapper {
+            padding-bottom: 0.35rem;
+        }
+    </style>
     <section>
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
             <h1 class="text-2xl font-semibold text-gray-800">ข้อมูลคณะในระบบ</h1>
@@ -28,7 +41,7 @@ $baseUrl = $_ENV['BASE_URL'] ?? '';
                 </button>
             </div>
 
-            <div class="p-4">
+            <div class="px-4">
                 <div class="overflow-x-auto no-scrollbar">
                     <table id="facultyTable" class="min-w-full text-sm text-left text-gray-700 w-full">
                         <thead class="bg-gray-50 border-b border-gray-200">
@@ -141,8 +154,8 @@ $baseUrl = $_ENV['BASE_URL'] ?? '';
     </div>
 
     <!-- jQuery + DataTables -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="../public/js/jquery-3.7.1.min.js"></script>
+    <script src="../public/js/jquery.dataTables.min.js"></script>
 
     <script>
         function escapeHtml(text) {
@@ -188,14 +201,14 @@ $baseUrl = $_ENV['BASE_URL'] ?? '';
                         render: function(data, type, row) {
                             return `
                             <div class="flex gap-2">
-                                <button type="button" class="btn-edit px-3 py-2 text-xs font-bold rounded-md bg-blue-600 hover:bg-blue-700 text-white"
+                                <button type="button" class="whitespace-nowrap btn-edit px-3 py-2 text-xs font-bold rounded-md bg-blue-600 hover:bg-blue-700 text-white"
                                     data-id="${row.id}"
                                     data-faculty="${escapeHtml(row.faculty)}"
                                     data-program="${escapeHtml(row.program)}"
                                     data-major="${escapeHtml(row.major)}"
                                 >แก้ไข</button>
 
-                                <button type="button" class="btn-delete px-3 py-2 text-xs font-bold rounded-md bg-red-600 hover:bg-red-700 text-white"
+                                <button type="button" class="whitespace-nowrap btn-delete px-3 py-2 text-xs font-bold rounded-md bg-red-600 hover:bg-red-700 text-white"
                                     data-id="${row.id}"
                                     data-major="${escapeHtml(row.major)}"
                                 >ลบ</button>

@@ -123,9 +123,7 @@ $baseUrl = $_ENV['BASE_URL'];
 
                     <textarea id="comment" name="comment"
                         class="block w-full h-24 resize-none rounded-md border-gray-300 shadow-sm mt-1
-                        focus:border-sky-500 focus:ring-sky-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600"
-                        placeholder="  ความคิดเห็นของคุณ...">
-                    </textarea>
+                        focus:border-sky-500 focus:ring-sky-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 p-2" placeholder="ความคิดเห็นของคุณ..."></textarea>
 
                     <p id="charCount" class="mt-1 text-sm text-gray-500 dark:text-gray-400">0 / 200</p>
                 </div>

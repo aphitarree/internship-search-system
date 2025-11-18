@@ -16,8 +16,8 @@ require_once __DIR__ . '/../includes/auth.php';
     <!-- Font Awesome -->
     <link href="../vendor/fortawesome/font-awesome/css/all.min.css" rel="stylesheet" type="text/css">
 
-    <!-- Tailwind (CDN) -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind -->
+    <link rel="stylesheet" href="../public/css/tailwind.css">
 
     <!-- Thai Sarabun font -->
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
@@ -62,7 +62,7 @@ require_once __DIR__ . '/../includes/auth.php';
                 <div class="container mx-auto px-4 py-6 lg:px-8 lg:py-8">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div class="col-span-1">
-                            <?php include_once '../components/chart.php' ?>
+                            <?php include_once 'components/chart.php' ?>
                         </div>
                         <div class="flex justify-center align-center">
                             <?php include_once '../components/access_stats.php' ?>
@@ -86,12 +86,8 @@ require_once __DIR__ . '/../includes/auth.php';
         <i class="fas fa-angle-up"></i>
     </button>
 
-
-
     <!-- JS -->
-    <script src="../vendor/jquery/jquery.min.js"></script>
-
-
+    <!-- <script src="../vendor/jquery/jquery.min.js"></script> -->
 </body>
 
 </html>

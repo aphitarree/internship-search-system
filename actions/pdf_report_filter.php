@@ -29,7 +29,7 @@ $mpdf = new \Mpdf\Mpdf([
     'margin_header' => 9,
     'margin_footer' => 9,
 
-    'fontDir' => array_merge($fontDirs, [dirname(__DIR__) . '/public/assets/fonts']),
+    'fontDir' => array_merge($fontDirs, [dirname(__DIR__) . '/public/fonts']),
     'fontdata' => $fontData + [
         'sarabun' => [
             'R'  => 'THSarabunNew.ttf',

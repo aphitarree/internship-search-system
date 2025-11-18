@@ -35,9 +35,12 @@ if (isset($_SESSION['checklogin'])) {
     </style>
 
     <title>เข้าสู่ระบบ - ฐานข้อมูลการฝึกงานนักศึกษา</title>
+
     <!-- Font Awesome -->
     <link href="../vendor/fortawesome/font-awesome/css/all.min.css" rel="stylesheet" type="text/css">
-    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind-->
+    <link rel="stylesheet" href="../public/css/tailwind.css">
 </head>
 
 <body class="relative flex flex-col min-h-screen">

@@ -15,19 +15,17 @@
     <!-- Font Awesome -->
     <link href="./vendor/fortawesome/font-awesome/css/all.min.css" rel="stylesheet" type="text/css">
 
-    <!-- Tailwind CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind-->
+    <link rel="stylesheet" href="./public/css/tailwind.css">
 
-    <!-- Choices.js (CDN) -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+    <!-- Choices.js-->
+    <link rel="stylesheet" href="./public/css/choices.min.css" />
+    <script src="./public/js/choices.min.js" defer></script>
 
-    <!-- Datatables (CDN) -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.dataTables.min.css">
-    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-    <script src="https://cdn.datatables.net/2.3.4/js/dataTables.min.js"></script>
-
-    <link rel="stylesheet" href="css/globals.css">
+    <!-- Datatables-->
+    <link rel="stylesheet" href="./public/css/dataTables.dataTables.min.css">
+    <script src="./public/js/jquery-3.7.1.js" defer></script>
+    <script src="./public/js/dataTables.min.js" defer></script>
 
     <!-- Thai Sarabun font -->
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">

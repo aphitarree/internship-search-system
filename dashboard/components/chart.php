@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../config/db_config.php';
+require_once __DIR__ . '/../../config/db_config.php';
 
 $sql = "
     SELECT DATE(created_at) AS visit_date, COUNT(*) AS total
@@ -47,7 +47,7 @@ $js_values = json_encode($values);
         <canvas id="chart" class="w-full h-full"></canvas>
     </div>
 
-    <script src="./public/js/chart.js"></script>
+    <script src="../public/js/chart.js"></script>
     <script type="module" defer>
         const values = <?= $js_values ?>;
         const dates = <?= $js_dates ?>;

@@ -40,7 +40,7 @@ $baseUrl = $_ENV['BASE_URL'] ?? '';
                 </div>
             </div>
 
-            <div class="p-4">
+            <div class="p-2">
                 <div class="overflow-x-auto no-scrollbar">
                     <table id="internshipTable" class="min-w-full text-sm text-left text-gray-700">
                         <thead class="bg-gray-50 border-b border-gray-200">
