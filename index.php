@@ -44,24 +44,94 @@
     <section class="relative w-full">
         <img src="public/images/background-1.jpg" alt="Banner" class="w-full h-[185px] object-cover" />
         <div class="absolute inset-0 bg-black/25"></div>
-        <h1 class="absolute inset-0 flex items-center justify-center text-white text-2xl md:text-3xl font-semibold text-center">
-            ฐานข้อมูลเครือข่ายความร่วมมือในการฝึกงาน มหาวิทยาลัยสวนดุสิต
+        <style>
+            .h1-title {
+                line-height: 1.65;
+            }
+        </style>
+        <h1 class="h1-title absolute inset-0 flex items-center justify-center text-white text-2xl md:text-3xl font-semibold text-center">
+            ฐานข้อมูลเครือข่ายความร่วมมือในการฝึกงานนักศึกษา มหาวิทยาลัยสวนดุสิต
         </h1>
+
+
     </section>
 
     <section class="md:container md:mx-auto">
         <main class="mx-auto w-full max-w-[1900px] px-4 py-2 mt-4 grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
             <section class="flex flex-col justify-center md:text-center lg:text-left">
-                <h1 class="text-5xl leading-[1.3] my-5 font-bold">
-                    <span class="inline-block">ฐานข้อมูล</span><span class="inline-block">เครือข่าย</span><span class="inline-block">ความร่วมมือ</span><span class="inline-block">ในการฝึกงาน</span>
-                </h1>
+                <style>
+                    /* sm (Tailwind) */
+                    .h2-title {
+                        font-size: 1.65rem;
+                        line-height: 1.65;
+                        text-align: left;
+                    }
 
-                <h2 class="text-4xl leading-[1.3] text-sky-500 mb-5">
-                    รวมข้อมูลฝึกงานมหาวิทยาลัยสวนดุสิต
+                    .h3-title {
+                        font-size: 1.45rem;
+                        line-height: 1.65;
+                        text-align: left;
+                    }
+
+                    .p-description {
+                        font-size: 1rem;
+                        line-height: 2;
+                        text-align: left;
+                    }
+
+                    /* md (Tailwind) */
+                    @media (min-width: 768px) {
+                        .h2-title {
+                            font-size: 2rem;
+                            line-height: 1.65;
+                            text-align: left;
+                        }
+
+                        .h3-title {
+                            font-size: 1.5rem;
+                            line-height: 1.65;
+                            text-align: left;
+                        }
+
+                        .p-description {
+                            font-size: 1.25rem;
+                            line-height: 2;
+                            text-align: left;
+                        }
+                    }
+
+                    /* size > md (Tailwind) */
+                    @media (min-width: 1024px) {
+                        .h2-title {
+                            font-size: 2.45rem;
+                            line-height: 1.6;
+                        }
+
+                        .h3-title {
+                            font-size: 2rem;
+                            line-height: 1.5;
+                            margin-top: 0.5rem;
+                        }
+
+                        .p-description {
+                            font-size: 1.55rem;
+                            line-height: 1.8;
+                            margin-top: 1rem;
+                        }
+                    }
+                </style>
+                <h2 class="h2-title font-bold mb-3">
+                    <span class="inline-block">
+                        ฐานข้อมูลเครือข่ายความร่วมมือในการฝึกงานนักศึกษา
+                    </span>
                 </h2>
-                <p class="text-2xl leading-[2]">
-                    เป็นแหล่งรวมข้อมูลการฝึกงานที่เกี่ยวข้อง ประกอบด้วย หน่วยงาน สถานประกอบการ และจังหวัด จำแนกตามปีการศึกษา พร้อมข้อมูลประกอบการตัดสินใจอื่น ๆ เพื่อช่วยให้นักศึกษามหาวิทยาลัยสวนดุสิต สามารถค้นหาสถานที่ฝึกงานได้สะดวกยิ่งขึ้น
-                </p>
+
+                <h3 class="h3-title text-sky-500 mb-3">
+                    รวมข้อมูลฝึกงานมหาวิทยาลัยสวนดุสิต
+                    </h2>
+                    <p class="p-description">
+                        เป็นแหล่งรวมข้อมูลการฝึกงานที่เกี่ยวข้อง ประกอบด้วย หน่วยงาน สถานประกอบการ และจังหวัด จำแนกตามปีการศึกษา พร้อมข้อมูลประกอบการตัดสินใจอื่น ๆ เพื่อช่วยให้นักศึกษามหาวิทยาลัยสวนดุสิต สามารถค้นหาสถานที่ฝึกงานได้สะดวกยิ่งขึ้น
+                    </p>
             </section>
             <div>
                 <?php include_once './components/chart.php' ?>

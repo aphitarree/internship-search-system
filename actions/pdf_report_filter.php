@@ -19,6 +19,14 @@ $fontDirs = $defaultConfig['fontDir'];
 $defaultFontConfig = (new FontVariables())->getDefaults();
 $fontData = $defaultFontConfig['fontdata'];
 
+$tmpDir = dirname(__DIR__) . '/tmp/mpdf';
+if (!is_dir($tmpDir) && !mkdir($tmpDir, 0777, true) && !is_dir($tmpDir)) {
+    throw new \RuntimeException(sprintf('Cannot create MPDF temp directory: %s', $tmpDir));
+}
+if (!is_writable($tmpDir)) {
+    throw new \RuntimeException(sprintf('MPDF temp directory is not writable: %s', $tmpDir));
+}
+
 $mpdf = new \Mpdf\Mpdf([
     'mode' => 'UTF-8',
     'format' => 'A4',
@@ -93,10 +101,10 @@ $sql = "
         faculty_program_major.program,
         faculty_program_major.major,
         internship_stats.year,
+        internship_stats.affiliation,
         internship_stats.total_student,
         internship_stats.mou_status,
         internship_stats.score,
-        internship_stats.affiliation,
         internship_stats.contact
     FROM internship_stats
     LEFT JOIN faculty_program_major ON internship_stats.major_id = faculty_program_major.id
@@ -307,11 +315,11 @@ ob_start();
                 <th>หลักสูตร</th>
                 <th>สาขา</th>
                 <th class="text-center">ปีการศึกษา</th>
+                <th>สังกัด</th>
                 <th class="text-center">จำนวน&nbsp;(คน)</th>
                 <th class="text-center">MOU</th>
                 <th>ข้อมูลการติดต่อ</th>
                 <th>คะแนน</th>
-                <th>สังกัด</th>
             </tr>
         </thead>
         <tbody>
@@ -324,11 +332,11 @@ ob_start();
                     <td class="text-left"><?= htmlspecialchars($row['program']) ?></td>
                     <td class="text-left"><?= htmlspecialchars($row['major']) ?></td>
                     <td><?= htmlspecialchars($row['year']) ?></td>
+                    <td class="text-left"><?= htmlspecialchars($row['affiliation']) ?></td>
                     <td class="text-center"><?= htmlspecialchars($row['total_student']) ?></td>
                     <td class="text-center"><?= htmlspecialchars($row['mou_status']) ?></td>
                     <td class="text-left"><?= htmlspecialchars($row['contact']) ?></td>
                     <td class="text-center"><?= htmlspecialchars($row['score']) ?></td>
-                    <td class="text-left"><?= htmlspecialchars($row['affiliation']) ?></td>
                 </tr>
 
                 <?php

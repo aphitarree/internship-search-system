@@ -17,6 +17,8 @@ try {
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     $conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, true);
+    $conn->exec("SET NAMES utf8mb4");
+    $conn->exec("SET CHARACTER SET utf8mb4");
 } catch (PDOException $e) {
     die('❌ Failed to connect: ' . $e->getMessage());
 }

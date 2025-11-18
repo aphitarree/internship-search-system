@@ -198,6 +198,12 @@ try {
             return a.label.localeCompare(b.label, 'th');
         }
 
+        const sortChoiceDesc = (a, b) => {
+            if (a.value === '' && b.value !== '') return 1;
+            if (a.value !== '' && b.value === '') return -1;
+            return b.label.localeCompare(a.label, 'th');
+        }
+
         const facultySelect = document.getElementById("faculty");
         const majorSelect = document.getElementById("major");
         const programSelect = document.getElementById("program");
@@ -514,7 +520,7 @@ try {
             searchEnabled: true,
             itemSelectText: "",
             searchPlaceholderValue: "พิมพ์เพื่อค้นหาปีการศึกษา...",
-            sorter: sortChoice,
+            sorter: sortChoiceDesc,
         });
 
         const populateAcademicYears = (list) => {

@@ -70,17 +70,18 @@ require_once __DIR__ . '/../includes/auth.php';
                     class="container mx-auto px-4 lg:px-8 mt-8">
 
                     <section>
-                        <h1 class="flex items-center text-2xl font-semibold text-gray-800 mb-5">
-                            <i class="fas fa-file-excel text-green-600 text-2xl"></i>
-                            เพิ่มฐานข้อมูลจาก Excel
-                            <div class="ml-3">
+                        <h1 class="flex flex-col gap-3 md:flex-row md:items-center text-xl md:text-2xl font-semibold text-gray-800 mb-5">
+                            <span class="flex items-center gap-2">
+                                <i class="fas fa-file-excel text-green-600 text-xl md:text-2xl"></i>
+                                <span>เพิ่มฐานข้อมูลจาก Excel</span>
+                            </span>
+                            <div class="mt-2 md:mt-0 md:ml-3">
                                 <?php include_once './components/button_excel_template.php'; ?>
                             </div>
                         </h1>
 
-
                         <!-- ปุ่มอัปโหลด -->
-                        <main class="flex items-center gap-3">
+                        <main class="flex flex-wrap gap-3">
                             <input
                                 type="file"
                                 name="excel_file"
@@ -120,6 +121,7 @@ require_once __DIR__ . '/../includes/auth.php';
                             <li>รองรับไฟล์เฉพาะ Excel เท่านั้น (.xlsx, .xls, และ .csv) โปรดจัดรูปแบบให้ถูกต้องตามคู่มือก่อนอัปโหลด</li>
                             <li>แถวแรกต้องเป็น Header และมีชื่อคอลัมน์ที่ถูกต้อง</li>
                             <li>ข้อมูลต้องเริ่มที่แถวที่ 2 เป็นต้นไป</li>
+                            <li>ข้อมูลชื่อคณะ หลักสูตร และสาขาต้องตรงกับข้อมูลที่มีในฐานข้อมูล ไม่เช่นนั้นจะไม่สามารถอัปโหลดได้</li>
                         </ul>
                     </section>
                 </form>

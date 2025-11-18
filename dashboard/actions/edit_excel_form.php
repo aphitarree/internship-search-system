@@ -19,7 +19,7 @@ $output = fopen('php://output', 'w');
 fwrite($output, "\xEF\xBB\xBF");
 
 // Set the column name for the file
-fputcsv($output, ['บริษัท', 'จังหวัด', 'คณะ', 'หลักสูตร', 'สาขา', 'ปีการศึกษา', 'จำนวนที่รับ', 'MOU', 'ข้อมูลการติดต่อ', 'คะแนน', 'สังกัด']);
+fputcsv($output, ['บริษัท', 'จังหวัด', 'คณะ', 'หลักสูตร', 'สาขา', 'ปีการศึกษา', 'สังกัด', 'จำนวนที่รับ', 'MOU', 'ข้อมูลการติดต่อ', 'คะแนน']);
 
 // Write the wrong data to the file
 if (isset($_SESSION['invalid_rows']) && count($_SESSION['invalid_rows']) > 0) {
@@ -31,17 +31,16 @@ if (isset($_SESSION['invalid_rows']) && count($_SESSION['invalid_rows']) > 0) {
             $row['program'] ?? '',
             $row['major'] ?? '',
             $row['year'] ?? '',
+            $row['affiliation'] ?? '',
             $row['total_student'] ?? '',
             $row['mou_status'] ?? '',
             $row['contact'] ?? '',
             $row['score'] ?? '',
-            $row['affiliation'] ?? '',
         ]);
     }
 } else {
     fputcsv($output, ['ไม่มีข้อมูลผิดพลาดใน Session']);
 }
-
 
 fclose($output);
 // unset($_SESSION['invalid_rows']);

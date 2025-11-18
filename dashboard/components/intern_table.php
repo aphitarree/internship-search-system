@@ -107,11 +107,11 @@ try {
                             <th class="px-3 py-2 font-semibold">หลักสูตร</th>
                             <th class="px-3 py-2 font-semibold">สาขา</th>
                             <th class="px-3 py-2 font-semibold">ปีการศึกษา</th>
+                            <th class="px-3 py-2 font-semibold">สังกัด</th>
                             <th class="px-3 py-2 font-semibold">จำนวนที่รับ</th>
                             <th class="px-3 py-2 font-semibold">MOU</th>
                             <th class="px-3 py-2 font-semibold">ข้อมูลการติดต่อ</th>
                             <th class="px-3 py-2 font-semibold">คะแนน</th>
-                            <th class="px-3 py-2 font-semibold">สังกัด</th>
                             <th class="px-3 py-2 font-semibold">วันที่สร้าง</th>
                             <th class="px-3 py-2 font-semibold text-center"></th>
                         </tr>
@@ -889,6 +889,8 @@ try {
             }, {
                 data: 'year'
             }, {
+                data: 'affiliation'
+            }, {
                 data: 'total_student'
             }, {
                 data: 'mou_status'
@@ -896,8 +898,6 @@ try {
                 data: 'contact'
             }, {
                 data: 'score'
-            }, {
-                data: 'affiliation'
             }, {
                 data: 'created_at',
             }, {

@@ -37,7 +37,7 @@ if (
         </button>
     </form>
 <?php else: ?>
-    <button class="flex h-11 bg-red-500 hover:bg-red-600 rounded-md bg-sky-500 text-white hover:bg-sky-600 px-4 text-center justify-center items-center">
+    <button class="flex h-11 bg-red-500 hover:bg-red-600 rounded-md text-white px-4 text-center justify-center items-center">
         <a href="<?php echo $baseUrl; ?>/actions/pdf_report_all.php">ดาวน์โหลดทั้งหมด (.pdf)</a>
     </button>
 <?php endif; ?>

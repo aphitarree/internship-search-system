@@ -1,14 +1,15 @@
 <?php
-
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+require_once __DIR__ . '/../../config/db_config.php';
 
 use Dotenv\Dotenv;
 
 $dotenv = Dotenv::createImmutable(dirname(dirname(__DIR__)));
 $dotenv->load();
-require_once __DIR__ . '/../../config/db_config.php';
+
+$baseUrl = $_ENV['BASE_URL'] ?? '';
 
 // ถ้ามี session เก็บชื่อ user อยู่แล้ว สามารถเปลี่ยนตรงนี้ได้ภายหลัง
 $id = $_SESSION['id'];
@@ -35,25 +36,11 @@ $userName = $user['username'];
             <i class="fa fa-bars text-sm"></i>
         </button>
 
-        <!-- Mobile Brand (ข้อมูลจาก sidebar) -->
-        <div class="flex items-center gap-2 md:hidden">
-            <img
-                src="../public/images/SDU Logo.png"
-                alt="SDU"
-                class="h-8 w-auto">
-            <div class="flex flex-col leading-tight">
-                <span class="text-sm font-semibold text-gray-800">
-                    ระบบจัดการฐานข้อมูล
-                </span>
-            </div>
-        </div>
-
         <!-- Home Link (ซ่อนบนจอเล็ก, โชว์บน sm ขึ้นไป) -->
         <a
             href="<?php echo $_ENV['BASE_URL']; ?>/"
             class="sm:inline-flex items-center gap-2 ml-2 text-sm text-gray-600 hover:text-gray-700 hover:bg-gray-100 px-3 py-2 rounded-md transition">
-            <i class="fas fa-home text-base"></i>
-            <span class="sm:inline">หน้าหลัก</span>
+            <i class="fas fa-home text-base"></i><span class="sm:inline whitespace-nowrap">หน้าหลัก</span>
         </a>
 
     </div>
@@ -76,7 +63,7 @@ $userName = $user['username'];
                         <?= htmlspecialchars($userName) ?>
                     </span>
                     <img
-                        src="../public/images/profile-pic.webp"
+                        src="<?= $baseUrl . '/public/images/profile-pic.webp' ?>"
                         alt="User Avatar"
                         class="w-9 h-9 rounded-full border border-gray-200 object-cover">
                     <i class="fas fa-chevron-down text-[10px] text-gray-400"></i>
