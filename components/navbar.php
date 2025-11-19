@@ -20,14 +20,14 @@ $fullUrl = $protocol . $host . $requestUri;
     <nav class="max-w-screen-xl mx-auto flex items-center justify-between p-4">
         <!-- Logo -->
         <?php if ($fullUrl === $baseDashboardUrl . '/login.php'): ?>
-            <a href="<?= $baseUrl ?>" class="flex items-center space-x-3">
+            <a href="https://regis.dusit.ac.th/" class="flex items-center space-x-3">
                 <img src="<?= $baseUrl . '/public/images/SDU Logo.png' ?>" alt="SDU" class="h-11 w-auto" />
                 <span class="text-xl md:text-2xl font-semibold text-gray-900">
                     สำนักส่งเสริมวิชาการและงานทะเบียน
                 </span>
             </a>
         <?php elseif (str_starts_with($fullUrl, $baseUrl)): ?>
-            <a href="<?= $baseUrl ?>" class="flex items-center space-x-3">
+            <a href="https://regis.dusit.ac.th/" class="flex items-center space-x-3">
                 <img src="./public/images/SDU Logo.png" alt="SDU" class="h-11 w-auto" />
                 <span class="text-xl md:text-2xl font-semibold text-gray-900">
                     สำนักส่งเสริมวิชาการและงานทะเบียน
