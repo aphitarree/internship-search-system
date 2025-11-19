@@ -10,11 +10,12 @@ $dotenv->load();
 $baseUrl = $_ENV['BASE_URL'];
 
 session_start();
-
-$email = $_POST['email'];
-$password = $_POST['password'];
+date_default_timezone_set('Asia/Bangkok');
+$email = $_POST['email'] ?? '';
+$password = $_POST['password'] ?? '';
 
 if (!empty($email) && !empty($password)) {
+
     $sql = 'SELECT * FROM user WHERE email = :email';
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(":email", $email);
@@ -22,32 +23,49 @@ if (!empty($email) && !empty($password)) {
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($user) {
+
         if (password_verify($password, $user['password'])) {
 
+            // สร้าง Session
             $_SESSION['checklogin'] = true;
             $_SESSION['email'] = $user['email'];
             $_SESSION['id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
             $_SESSION['role'] = $user['role'];
 
+            // Remember Token
             $token = bin2hex(random_bytes(16));
-            // setcookie('remember_token', $token, time() + (30 * 24 * 60 * 60), '/', '', false, true);
-            // 1 Hour cookie
-            setcookie('remember_token', $token, time() + (60 * 60), '/', '', false, true);
-            $stmt = $conn->prepare("UPDATE user SET remember_token='{$token}' WHERE id = :id");
+            $expireTime = date("Y-m-d H:i:s", time() + 2700); // 1 ชั่วโมง
+
+            // Save token ลง DB
+            $stmt = $conn->prepare("
+                UPDATE user 
+                SET remember_token = :token, token_expire = :expire 
+                WHERE id = :id
+            ");
+            $stmt->bindParam(":token", $token);
+            $stmt->bindParam(":expire", $expireTime);
             $stmt->bindParam(":id", $user['id']);
             $stmt->execute();
 
+            // ลบ cookie เก่า (ถ้ามี)
             if (!empty($_COOKIE['remember_token'])) {
-                setcookie('remember_token', '', time() - 3600, '/');
+                setcookie('remember_token', '', time() - 2700, '/');
             }
 
-            if ($user['role'] === 'admin' || $user['role'] === 'user') {
-                header("Location: {$baseUrl}/dashboard");
-            } else {
-                header("Location: {$baseUrl}/index.php");
-            }
+            // สร้าง Cookie ใหม่
+            setcookie(
+                'remember_token',
+                $token,
+                time() + 2700, // 1 hr
+                '/',
+                '',
+                false,
+                true
+            );
 
+            // Redirect หลัง login สำเร็จ
+            header("Location: {$baseUrl}/dashboard");
             exit;
         } else {
             $_SESSION['message'] = 'User or password invalid';
