@@ -79,7 +79,7 @@ $userName = $user['username'];
                         data-logout-open="true"
                         class="w-full text-left flex items-center px-3 py-2 text-red-600 hover:bg-red-50">
                         <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                        <span>Logout</span>
+                        <span>ออกจากระบบ</span>
                     </button>
                 </div>
             </div>
@@ -93,7 +93,7 @@ $userName = $user['username'];
     class="fixed inset-0 z-50 hidden bg-black/50 items-center justify-center px-4">
     <div class="bg-white rounded-xl shadow-2xl w-full max-w-md overflow-hidden">
         <div class="flex items-center justify-between px-5 py-3 border-b border-gray-200">
-            <h5 class="text-lg font-semibold text-gray-800">Ready to Leave?</h5>
+            <h5 class="text-lg font-semibold text-gray-800">ยืนยันการออกจากระบบ?</h5>
             <button
                 type="button"
                 class="text-gray-400 hover:text-gray-600 focus:outline-none"
@@ -102,19 +102,19 @@ $userName = $user['username'];
             </button>
         </div>
         <div class="px-5 py-4 text-sm text-gray-700">
-            Select "Logout" below if you are ready to end your current session.
+            เลือก ‘ออกจากระบบ’ ด้านล่าง หากคุณพร้อมที่จะออกจากระบบ
         </div>
         <div class="flex justify-end gap-2 px-5 py-3 border-t border-gray-200">
             <button
                 type="button"
                 class="px-4 py-2 text-sm font-medium rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50"
                 data-logout-close="true">
-                Cancel
+                ยกเลิก
             </button>
             <a
                 href="<?php echo $baseUrl . '/actions/logout_form.php'; ?>"
                 class="px-4 py-2 text-sm font-medium rounded-lg bg-sky-500 text-white hover:bg-sky-600">
-                Logout
+                ออกจากระบบ
             </a>
         </div>
     </div>

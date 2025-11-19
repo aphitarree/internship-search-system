@@ -68,17 +68,17 @@ if (!empty($email) && !empty($password)) {
             header("Location: {$baseUrl}/dashboard");
             exit;
         } else {
-            $_SESSION['message'] = 'User or password invalid';
+            $_SESSION['message'] = 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง';
             header("Location: {$baseUrl}/dashboard/login.php");
             exit;
         }
     } else {
-        $_SESSION['message'] = 'Username not found';
+        $_SESSION['message'] = 'ไม่พบชื่อผู้ใช้';
         header("Location: {$baseUrl}/dashboard/login.php");
         exit;
     }
 } else {
-    $_SESSION['message'] = 'User or password required';
+    $_SESSION['message'] = 'กรุณากรอกข้อมูลให้ครบถ้วน';
     header("Location: {$baseUrl}/dashboard/login.php");
     exit;
 }

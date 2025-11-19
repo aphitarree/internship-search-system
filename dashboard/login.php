@@ -105,8 +105,23 @@ if (isset($_SESSION['checklogin'])) {
                             เข้าสู่ระบบ
                         </button>
                     </form>
+
+                    <style>
+                        .link-no-margin-top {
+                            margin-top: 17px !important;
+                        }
+                    </style>
+
+                    <div class="flex flex-row justify-end items-end link-no-margin-top">
+                        <a
+                            href="<?= $baseUrl ?>"
+                            class="text-sky-600 hover:underline text-lg font-medium">
+                            กลับสู่หน้าหลัก
+                        </a>
+                    </div>
                 </div>
             </div>
+
         </div>
     </div>
 </body>
