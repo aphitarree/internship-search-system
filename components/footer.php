@@ -10,7 +10,7 @@ $baseUrl = $_ENV['BASE_URL'];
 
 <!-- FOOTER -->
 <footer class="text-gray-200 bg-neutral-800 py-8">
-    <div class="max-w-screen-xl mx-auto flex flex-col lg:flex-row lg:justify-start gap-5">
+    <div class="max-w-screen-xl mx-auto flex flex-col lg:flex-row justify-center gap-6">
         <!-- ข้อความรายละเอียด (ซ้าย) -->
         <div class="lg:w-[38%] space-y-3 text-center lg:text-left text-gray-400">
             <p>
