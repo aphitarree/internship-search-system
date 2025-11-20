@@ -11,6 +11,14 @@ $baseUrl = $_ENV['BASE_URL'] ?? '';
 ?>
 <section class="bg-gray-100">
     <style>
+        table,
+        thead,
+        tr,
+        th,
+        td {
+            border-width: 1px;
+        }
+
         #facultyTable_filter {
             padding-top: 0.35rem;
         }
@@ -183,18 +191,16 @@ $baseUrl = $_ENV['BASE_URL'] ?? '';
                         data: null,
                         render: function(data, type, row, meta) {
                             return meta.row + meta.settings._iDisplayStart + 1;
-                        }
+                        },
+                        className: '!text-center p-2'
                     },
                     {
-                        data: 'faculty'
-                    },
-                    {
+                        data: 'faculty',
+                    }, {
                         data: 'program'
-                    },
-                    {
+                    }, {
                         data: 'major'
-                    },
-                    {
+                    }, {
                         data: null,
                         orderable: false,
                         searchable: false,

@@ -52,6 +52,14 @@ try {
 
 <section class="mt-4">
     <style>
+        table,
+        thead,
+        tr,
+        th,
+        td {
+            border-width: 1px;
+        }
+
         /* ทำให้คอลัมน์ข้อมูลการติดต่อขึ้นบรรทัดใหม่เมื่อข้อความยาว */
         td.cell-contact {
             white-space: normal;
@@ -100,20 +108,20 @@ try {
                     class="min-w-full text-sm text-left text-gray-700">
                     <thead class="bg-gray-50 border-b border-gray-200">
                         <tr>
-                            <th class="px-3 py-2 font-semibold">NO.</th>
-                            <th class="px-3 py-2 font-semibold">หน่วยงาน</th>
-                            <th class="px-3 py-2 font-semibold">จังหวัด</th>
-                            <th class="px-3 py-2 font-semibold">คณะ / โรงเรียน</th>
-                            <th class="px-3 py-2 font-semibold">หลักสูตร</th>
-                            <th class="px-3 py-2 font-semibold">สาขาวิชา</th>
-                            <th class="px-3 py-2 font-semibold">ปีการศึกษา</th>
-                            <th class="px-3 py-2 font-semibold">สังกัด</th>
-                            <th class="px-3 py-2 font-semibold">จำนวนที่รับ</th>
-                            <th class="px-3 py-2 font-semibold">MOU</th>
-                            <th class="px-3 py-2 font-semibold">ข้อมูลการติดต่อ</th>
-                            <th class="px-3 py-2 font-semibold">คะแนน</th>
-                            <th class="px-3 py-2 font-semibold">วันที่สร้าง</th>
-                            <th class="px-3 py-2 font-semibold text-center"></th>
+                            <th class="px-3 py-2 font-semibold !text-center">NO.</th>
+                            <th class="px-3 py-2 font-semibold !text-center">หน่วยงาน</th>
+                            <th class="px-3 py-2 font-semibold !text-center">จังหวัด</th>
+                            <th class="px-3 py-2 font-semibold !text-center">คณะ / โรงเรียน</th>
+                            <th class="px-3 py-2 font-semibold !text-center">หลักสูตร</th>
+                            <th class="px-3 py-2 font-semibold !text-center">สาขาวิชา</th>
+                            <th class="px-3 py-2 font-semibold !text-center">ปีการศึกษา</th>
+                            <th class="px-3 py-2 font-semibold !text-center">สังกัด</th>
+                            <th class="px-3 py-2 font-semibold !text-center">จำนวนที่รับ</th>
+                            <th class="px-3 py-2 font-semibold !text-center">MOU</th>
+                            <th class="px-3 py-2 font-semibold !text-center">ข้อมูลการติดต่อ</th>
+                            <th class="px-3 py-2 font-semibold !text-center">คะแนน</th>
+                            <th class="px-3 py-2 font-semibold !text-center">วันที่สร้าง</th>
+                            <th class="px-3 py-2 font-semibold !text-center"></th>
                         </tr>
                     </thead>
                     <!-- server-side จะเติม tbody เอง -->
@@ -880,31 +888,44 @@ try {
                 data: null,
                 render: function(data, type, row, meta) {
                     return meta.row + meta.settings._iDisplayStart + 1;
-                }
+                },
+                className: 'text-center p-2'
             }, {
-                data: 'organization'
+                data: 'organization',
+                className: 'text-left p-2'
             }, {
-                data: 'province'
+                data: 'province',
+                className: 'text-left p-2'
             }, {
-                data: 'faculty'
+                data: 'faculty',
+                className: 'text-left p-2'
             }, {
-                data: 'program'
+                data: 'program',
+                className: 'text-left p-2'
             }, {
-                data: 'major'
+                data: 'major',
+                className: 'text-left p-2'
             }, {
-                data: 'year'
+                data: 'year',
+                className: '!text-center p-2'
             }, {
-                data: 'affiliation'
+                data: 'affiliation',
+                className: '!text-center p-2'
             }, {
-                data: 'total_student'
+                data: 'total_student',
+                className: '!text-center p-2'
             }, {
-                data: 'mou_status'
+                data: 'mou_status',
+                className: 'text-center p-2'
             }, {
-                data: 'contact'
+                data: 'contact',
+                className: 'text-left p-2'
             }, {
-                data: 'score'
+                data: 'score',
+                className: '!text-center p-2'
             }, {
                 data: 'created_at',
+                className: '!text-center p-2'
             }, {
                 data: null,
                 orderable: false,

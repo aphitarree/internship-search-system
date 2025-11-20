@@ -12,6 +12,14 @@ $baseUrl = $_ENV['BASE_URL'] ?? '';
 
 <section>
     <style>
+        table,
+        thead,
+        tr,
+        th,
+        td {
+            border-width: 1px;
+        }
+
         #userTable_filter {
             padding-top: 0.35rem;
         }
@@ -54,11 +62,11 @@ $baseUrl = $_ENV['BASE_URL'] ?? '';
                     class="min-w-full text-sm text-left text-gray-700">
                     <thead class="bg-gray-50 border-b border-gray-200">
                         <tr>
-                            <th class="px-3 py-2 font-semibold">NO.</th>
-                            <th class="px-3 py-2 font-semibold">อีเมล</th>
-                            <th class="px-3 py-2 font-semibold">ชื่อผู้ใช้</th>
-                            <th class="px-3 py-2 font-semibold">สิทธิ์</th>
-                            <th class="px-3 py-2 font-semibold"></th>
+                            <th class="px-3 py-2 font-semibold !text-center">NO.</th>
+                            <th class="px-3 py-2 font-semibold !text-center">อีเมล</th>
+                            <th class="px-3 py-2 font-semibold !text-center">ชื่อผู้ใช้</th>
+                            <th class="px-3 py-2 font-semibold !text-center">สิทธิ์</th>
+                            <th class="px-3 py-2 font-semibold !text-center"></th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100"></tbody>
@@ -332,13 +340,17 @@ $baseUrl = $_ENV['BASE_URL'] ?? '';
                 data: null,
                 render: function(data, type, row, meta) {
                     return meta.row + meta.settings._iDisplayStart + 1;
-                }
+                },
+                className: '!text-center p-2'
             }, {
-                data: 'email'
+                data: 'email',
+                className: 'text-left p-2'
             }, {
-                data: 'username'
+                data: 'username',
+                className: 'text-left p-2'
             }, {
-                data: 'role'
+                data: 'role',
+                className: 'text-center p-2'
             }, {
                 data: null,
                 orderable: false,

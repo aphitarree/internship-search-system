@@ -63,7 +63,7 @@ $userName = $user['username'];
                         <?= htmlspecialchars($userName) ?>
                     </span>
                     <img
-                        src="<?= $baseUrl . '/public/images/profile-pic.webp' ?>"
+                        src="<?= $baseUrl . '/public/images/profile-pic.png' ?>"
                         alt="User Avatar"
                         class="w-9 h-9 rounded-full border border-gray-200 object-cover">
                     <i class="fas fa-chevron-down text-[10px] text-gray-400"></i>

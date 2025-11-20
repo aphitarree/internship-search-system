@@ -11,6 +11,14 @@ $baseUrl = $_ENV['BASE_URL'] ?? '';
 ?>
 <section class="bg-gray-100">
     <style>
+        table,
+        thead,
+        tr,
+        th,
+        td {
+            border-width: 1px;
+        }
+
         #feedbackTable_filter {
             padding-top: 0.35rem;
         }
@@ -127,35 +135,33 @@ $baseUrl = $_ENV['BASE_URL'] ?? '';
                     type: 'POST'
                 },
                 columns: [{
-                        data: null,
-                        render: function(data, type, row, meta) {
-                            return meta.row + meta.settings._iDisplayStart + 1;
-                        }
+                    data: null,
+                    render: function(data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
                     },
-                    {
-                        data: 'is_useful',
-                        render: function(data) {
-                            return escapeHtml(data);
-                        }
+                    className: '!text-center p-2'
+                }, {
+                    data: 'is_useful',
+                    render: function(data) {
+                        return escapeHtml(data);
+                    }
+                }, {
+                    data: 'comment',
+                    render: function(data) {
+                        return escapeHtml(data);
+                    }
+                }, {
+                    data: 'created_at',
+                    render: function(data) {
+                        return escapeHtml(data);
                     },
-                    {
-                        data: 'comment',
-                        render: function(data) {
-                            return escapeHtml(data);
-                        }
-                    },
-                    {
-                        data: 'created_at',
-                        render: function(data) {
-                            return escapeHtml(data);
-                        }
-                    },
-                    {
-                        data: null,
-                        orderable: false,
-                        searchable: false,
-                        render: function(data, type, row) {
-                            return `
+                    className: '!text-center p-2'
+                }, {
+                    data: null,
+                    orderable: false,
+                    searchable: false,
+                    render: function(data, type, row) {
+                        return `
                                 <div class="flex justify-center">
                                     <button
                                         type="button"
@@ -167,9 +173,8 @@ $baseUrl = $_ENV['BASE_URL'] ?? '';
                                     </button>
                                 </div>
                             `;
-                        }
                     }
-                ],
+                }],
                 createdRow: function(row, data) {
                     $(row).attr('data-id', data.id);
                 },
