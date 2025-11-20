@@ -87,7 +87,7 @@ $fullUrl = $protocol . $host . $requestUri;
                     ? 'bg-sky-600/90 shadow-sm'
                     : 'hover:bg-sky-400/70'; ?>">
                 <i class="fas fa-university"></i>
-                <span class="sidebar-text">เพิ่มข้อมูลคณะ</span>
+                <span class="sidebar-text">เพิ่มข้อมูลคณะ / โรงเรียน</span>
             </a>
         </div>
 

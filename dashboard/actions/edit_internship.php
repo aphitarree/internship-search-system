@@ -15,18 +15,18 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 // Input form data
-$id = isset($_POST['id']) ? (int)$_POST['id'] : 0;
-$organization = trim($_POST['organization'] ?? '');
-$province = trim($_POST['province'] ?? '');
-$faculty = trim($_POST['faculty'] ?? '');
-$program = trim($_POST['program'] ?? '');
-$major = trim($_POST['major'] ?? '');
-$yearInput = trim($_POST['year'] ?? '');
+$id               = isset($_POST['id']) ? (int)$_POST['id'] : 0;
+$organization     = trim($_POST['organization'] ?? '');
+$province         = trim($_POST['province'] ?? '');
+$faculty          = trim($_POST['faculty'] ?? '');
+$program          = trim($_POST['program'] ?? '');
+$major            = trim($_POST['major'] ?? '');
+$yearInput        = trim($_POST['year'] ?? '');
 $totalStudentInput = trim($_POST['total_student'] ?? '');
-$mouStatus = trim($_POST['mou_status'] ?? '');
-$score = trim($_POST['score'] ?? '');
-$contact = trim($_POST['contact'] ?? '');
-$affiliation = trim($_POST['affiliation'] ?? '');
+$mouStatus        = trim($_POST['mou_status'] ?? '');
+$score            = trim($_POST['score'] ?? '');
+$contact          = trim($_POST['contact'] ?? '');
+$affiliation      = trim($_POST['affiliation'] ?? '');
 
 if ($id <= 0) {
     echo json_encode([
@@ -37,7 +37,6 @@ if ($id <= 0) {
 }
 
 try {
-    // Fetch current year, total_student, mou_status for prevent inserting null value to the database
     $stmtCurrentData = $conn->prepare("
         SELECT year, total_student, mou_status, affiliation
         FROM internship_stats
@@ -56,35 +55,30 @@ try {
         exit;
     }
 
-    // If yearInput is null then insert the current year data from the database
     if ($yearInput !== '' && ctype_digit($yearInput)) {
         $year = (int)$yearInput;
     } else {
         $year = (int)$currentData['year'];
     }
 
-    // If totalStudentInput is null then insert the current total student data from the database
     if ($totalStudentInput !== '' && ctype_digit($totalStudentInput)) {
         $totalStudent = (int)$totalStudentInput;
     } else {
         $totalStudent = (int)$currentData['total_student'];
     }
 
-    // If mouStatus is null then insert the current total student data from the database
     if ($mouStatus === '') {
         $mouStatusToSave = $currentData['mou_status'];
     } else {
         $mouStatusToSave = $mouStatus;
     }
 
-    // If the affiliation is null eject the insertion
     if ($affiliation === '') {
         $affiliationToSave = $currentData['affiliation'] ?? '';
     } else {
         $affiliationToSave = $affiliation;
     }
 
-    // If the faculty, program, and major is null eject the insertion
     if ($faculty === '' || $program === '' || $major === '') {
         echo json_encode([
             'success' => false,
@@ -93,13 +87,12 @@ try {
         exit;
     }
 
-    // Fetch the id from the input faculty, program, and major
     $sqlMajor = "
         SELECT id
         FROM faculty_program_major
         WHERE faculty = :faculty
             AND program = :program
-            AND major = :major
+            AND major   = :major
         LIMIT 1
     ";
     $stmtMajor = $conn->prepare($sqlMajor);
@@ -109,7 +102,6 @@ try {
     $stmtMajor->execute();
     $majorRow = $stmtMajor->fetch(PDO::FETCH_ASSOC);
 
-    // If the major doesn't exist, eject
     if (!$majorRow) {
         echo json_encode([
             'success' => false,
@@ -120,7 +112,34 @@ try {
 
     $majorId = (int)$majorRow['id'];
 
-    // Update the internship_stats record data
+    $scoreToSave = '-';
+
+    if ($score === '' || $score === null) {
+        $scoreToSave = '-';
+    } elseif ($score === '-') {
+        $scoreToSave = '-';
+    } else {
+        if (!is_numeric($score)) {
+            echo json_encode([
+                'success' => false,
+                'message' => 'รูปแบบคะแนนไม่ถูกต้อง ต้องเป็นตัวเลข 0 - 5 หรือ "-"'
+            ]);
+            exit;
+        }
+
+        $scoreNum = (float)$score;
+
+        if ($scoreNum < 0 || $scoreNum > 5) {
+            echo json_encode([
+                'success' => false,
+                'message' => 'คะแนนต้องอยู่ระหว่าง 0 - 5 หรือใช้ "-" หากไม่ต้องการให้คะแนน'
+            ]);
+            exit;
+        }
+
+        $scoreToSave = (string)$scoreNum;
+    }
+
     $sql = "
         UPDATE internship_stats
         SET
@@ -136,38 +155,35 @@ try {
         WHERE id = :id
         LIMIT 1
     ";
+
     $stmt = $conn->prepare($sql);
-    $stmt->bindParam(':major_id', $majorId, PDO::PARAM_INT);
-    $stmt->bindParam(':organization', $organization, PDO::PARAM_STR);
-    $stmt->bindParam(':province', $province, PDO::PARAM_STR);
-    $stmt->bindParam(':year', $year, PDO::PARAM_INT);
-    $stmt->bindParam(':total_student', $totalStudent, PDO::PARAM_INT);
-    $stmt->bindParam(':mou_status', $mouStatusToSave, PDO::PARAM_STR);
-    if ($score === '') {
-        $stmt->bindValue(':score', null, PDO::PARAM_NULL);
-    } else {
-        $stmt->bindParam(':score', $score, PDO::PARAM_STR);
-    }
-    $stmt->bindParam(':contact', $contact, PDO::PARAM_STR);
-    $stmt->bindParam(':affiliation', $affiliationToSave, PDO::PARAM_STR);
-    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->bindParam(':major_id',      $majorId,          PDO::PARAM_INT);
+    $stmt->bindParam(':organization',  $organization,     PDO::PARAM_STR);
+    $stmt->bindParam(':province',      $province,         PDO::PARAM_STR);
+    $stmt->bindParam(':year',          $year,             PDO::PARAM_INT);
+    $stmt->bindParam(':total_student', $totalStudent,     PDO::PARAM_INT);
+    $stmt->bindParam(':mou_status',    $mouStatusToSave,  PDO::PARAM_STR);
+    $stmt->bindParam(':score',         $scoreToSave,      PDO::PARAM_STR);
+    $stmt->bindParam(':contact',       $contact,          PDO::PARAM_STR);
+    $stmt->bindParam(':affiliation',   $affiliationToSave, PDO::PARAM_STR);
+    $stmt->bindParam(':id',            $id,               PDO::PARAM_INT);
     $stmt->execute();
 
     echo json_encode([
         'success' => true,
         'data' => [
-            'id' => $id,
-            'organization' => $organization,
-            'province' => $province,
-            'faculty' => $faculty,
-            'program' => $program,
-            'major' => $major,
-            'year' => $year,
+            'id'            => $id,
+            'organization'  => $organization,
+            'province'      => $province,
+            'faculty'       => $faculty,
+            'program'       => $program,
+            'major'         => $major,
+            'year'          => $year,
             'total_student' => $totalStudent,
-            'mou_status' => $mouStatusToSave,
-            'score' => $score === '' ? null : $score,
-            'contact' => $contact,
-            'affiliation' => $affiliation,
+            'mou_status'    => $mouStatusToSave,
+            'score'         => $scoreToSave,
+            'contact'       => $contact,
+            'affiliation'   => $affiliationToSave,
         ]
     ]);
     exit;

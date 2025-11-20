@@ -240,13 +240,30 @@ try {
                     <div>
                         <label class="block text-gray-700 text-sm font-bold mb-2">คะแนน (0 - 5)</label>
                         <input
-                            type="number"
+                            type="text"
                             name="score"
-                            min="0"
-                            max="5"
-                            step="0.1"
+                            placeholder="- หรือ 0–5"
+                            oninput="validateScore(this)"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             required>
+
+                        <script>
+                            function validateScore(input) {
+                                const value = input.value.trim();
+
+                                if (value === "" || value === "-") return;
+
+                                if (isNaN(value)) {
+                                    input.value = "";
+                                    return;
+                                }
+
+                                const num = parseFloat(value);
+                                if (num < 0 || num > 5) {
+                                    input.value = "";
+                                }
+                            }
+                        </script>
                     </div>
                     <div>
                         <label class="block text-gray-700 text-sm font-bold mb-2">สังกัด</label>
@@ -398,14 +415,31 @@ try {
                     <div>
                         <label class="block text-gray-700 text-sm font-bold mb-2">คะแนน (0 - 5)</label>
                         <input
-                            type="number"
+                            type="text"
                             name="score"
-                            min="0"
-                            max="5"
-                            step="0.1"
                             id="edit-score"
+                            placeholder="- หรือ 0–5"
+                            oninput="validateScore(this)"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             required>
+
+                        <script>
+                            function validateScore(input) {
+                                const value = input.value.trim();
+
+                                if (value === "" || value === "-") return;
+
+                                if (isNaN(value)) {
+                                    input.value = "";
+                                    return;
+                                }
+
+                                const num = parseFloat(value);
+                                if (num < 0 || num > 5) {
+                                    input.value = "";
+                                }
+                            }
+                        </script>
                     </div>
                     <div>
                         <label class="block text-gray-700 text-sm font-bold mb-2">สังกัด</label>
@@ -595,7 +629,7 @@ try {
         "ภาครัฐ",
         "ภาคเอกชน",
         "รัฐวิสาหกิจ",
-        "ไม่มี",
+        "-",
     ]
 
     const sortChoice = (a, b) => {

@@ -58,7 +58,7 @@ $baseUrl = $_ENV['BASE_URL'] ?? '';
                                 <th class="px-3 py-2 font-semibold !text-center">คณะ</th>
                                 <th class="px-3 py-2 font-semibold !text-center">หลักสูตร</th>
                                 <th class="px-3 py-2 font-semibold !text-center">สาขา</th>
-                                <th class="px-3 py-2 font-semibold !text-center text-center"></th>
+                                <th class="px-3 py-2 font-semibold !text-center"></th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-100"></tbody>
